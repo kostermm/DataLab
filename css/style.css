@@ -1,0 +1,87 @@
+/*
+ | Basic styling for maps
+ | @author Martino Kosterman
+ | @date March 2017
+*/
+
+@font-face {
+    font-family: "RijksoverheidSans";
+    font-style: normal;
+    font-weight: bold;
+    src: url("fonts/ro-sanswebtextbold.eot?#iefix") format("embedded-opentype"), url("fonts/ro-sanswebtextbold.woff") format("application/font-woff"), url("fonts/ro-sanswebtextbold.ttf") format("truetype");
+}
+@font-face {
+    font-family: "RijksoverheidSans";
+    font-style: italic;
+    font-weight: normal;
+    src: url("fonts/ro-sanswebtextitalic.eot?#iefix") format("embedded-opentype"), url("fonts/ro-sanswebtextitalic.woff") format("application/font-woff"), url("fonts/ro-sanswebtextitalic.ttf") format("truetype");
+}
+@font-face {
+    font-family: "RijksoverheidSans";
+    font-style: normal;
+    font-weight: normal;
+    src: url("fonts/ro-sanswebtextregular.eot?#iefix") format("embedded-opentype"), url("fonts/ro-sanswebtextregular.woff") format("application/font-woff"), url("fonts/ro-sanswebtextregular.ttf") format("truetype");
+}
+@font-face {
+    font-family: "RijksoverheidSerif";
+    font-style: normal;
+    font-weight: bold;
+    src: url("fonts/ro-serifwebbold.eot?#iefix") format("embedded-opentype"), url("fonts/ro-serifwebbold.woff") format("application/font-woff"), url("fonts/ro-serifwebbold.ttf") format("truetype");
+}
+@font-face {
+    font-family: "RijksoverheidSerif";
+    font-style: italic;
+    font-weight: normal;
+    src: url("fonts/ro-serifwebitalic.eot?#iefix") format("embedded-opentype"), url("fonts/ro-serifwebitalic.woff") format("application/font-woff"), url("fonts/ro-serifwebitalic.ttf") format("truetype");
+}
+@font-face {
+    font-family: "RijksoverheidSerif";
+    font-style: normal;
+    font-weight: normal;
+    src: url("fonts/ro-serifwebregular.eot?#iefix") format("embedded-opentype"), url("fonts/ro-serifwebregular.woff") format("application/font-woff"), url("fonts/ro-serifwebregular.ttf") format("truetype");
+}
+
+body {
+  font-family: RijksoverheidSans;
+}
+.container span {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+.column {
+  display: inline-block;
+  float: left;
+  width: 45%;
+}
+.column.one {
+  min-width: 495px;
+}
+.column.two {
+  padding: .5em;
+  max-width: 450px;
+}
+
+.loading {
+  margin-top: 10em;
+  text-align: center;
+  color: red;
+}
+
+.highcharts-data-table table {
+     border-collapse: collapse;
+     margin-top: 1em;
+}
+.highcharts-data-table table, .highcharts-data-table th, .highcharts-data-table td {
+     border: 1px solid silver;
+}
+.highcharts-data-table tbody th {
+     text-align: left;
+}
+.highcharts-data-table tr > *{
+     padding: 0.1em 0.3em;
+}
+.highcharts-data-table tr > *.number {
+     text-align: right;
+}
