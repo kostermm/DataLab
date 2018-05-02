@@ -1,0 +1,104 @@
+body {
+  margin: 0;
+  min-width: 312px;
+}
+
+#header {
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  margin: 0;
+  min-height: 88px;
+}
+
+#header:not(.with-bg-image) {
+  justify-content: center;
+}
+
+#header.with-bg-image .logo {
+  margin-left: -66px;
+  position: absolute;
+  padding-left: 44px;
+  width: auto;
+  top: 0;
+  left: 50%;
+  z-index: 1;
+}
+
+#header .logo {
+  margin-top: -11px;
+  text-decoration: none;
+  padding-left: 134px;
+  padding-right: 0px;
+}
+
+@media (min-width: 576px) {
+  #header .logo {
+    margin-top: 0px;
+    padding-left: 240px;
+    padding-right: 0px;
+    min-height: 88px;
+  }
+}
+
+#header .logo .wordmark {
+  letter-spacing: 0.001em;
+  font-family: "RO Serif", "Times New Roman", Times, serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 11px;
+  line-height: 14px;
+  display: block;
+  float: right;
+  padding-top: 34px;
+  margin-left: 4px;
+  margin-right: 0px;
+  width: 130px;
+}
+
+@media (min-width: 576px) {
+  #header .logo .wordmark {
+    font-size: 14px;
+    line-height: 14px;
+    margin-left: 9px;
+    margin-right: 21px;
+    width: 210px;
+  }
+}
+
+#header .logo > span {
+  display: block;
+}
+
+#header .logo .secondary-sender {
+  font-style: italic;
+  display: block;
+  line-height: 14px;
+  padding-bottom: 14px;
+}
+
+#header .header-media {
+  padding: 0;
+  width: 100%;
+}
+
+#header .header-media img {
+  width: 100%;
+  height: auto;
+}
+
+@font-face {
+  font-family: "RO Serif";
+  src: url("../fonts/RO-SerifWeb-Regular.eot");
+  src: url("../fonts/RO-SerifWeb-Regular.eot?#iefix") format("eot"), url("../fonts/RO-SerifWeb-Regular.ttf") format("truetype"), url("../fonts/RO-SerifWeb-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "RO Serif";
+  src: url("../fonts/RO-SerifWeb-Italic.eot");
+  src: url("../fonts/RO-SerifWeb-Italic.eot?#iefix") format("eot"), url("../fonts/RO-SerifWeb-Italic.ttf") format("truetype"), url("../fonts/RO-SerifWeb-Italic.woff") format("woff");
+  font-weight: normal;
+  font-style: italic;
+}

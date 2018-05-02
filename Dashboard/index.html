@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en"/>
+
+<head>
+	<meta charset="utf-8"/>
+	<title>RIVM Interactive webgraphs</title>
+	<meta name="description" content=""/>
+	<meta name="generator" content="kss-node"/>
+	<meta name="viewport" content="width=device-width"/>
+	<link rel="stylesheet" href="css/kss.css"/>
+	<link rel="stylesheet" href="css/extras.css"/>
+	
+	<!--link rel="stylesheet" href="css/font-awesome.min.css"/--> 
+	
+	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+</head>
+
+<body id="kss-node">
+	<header id="header" class="header hide-fullscreen">
+		<div class="logo">
+			<a href="http://www.rivm.nl"><img src="img/basislogo.svg" width="44" height="77" alt="Logo RIVM | naar de homepage" class="logo-image" /></a>
+			<span class="wordmark">
+				<span class="sender">Rijksinstituut voor Volksgezondheid en Milieu</span>
+				<span class="secondary-sender">Ministerie van Volksgezondheid, Welzijn en Sport</span>
+			</span>
+		</div>
+	</header>
+	<div class="navbar-titlebar">
+		<div class="container">Interactieve grafieken gebaseerd op live data met vergelijkingsmogelijkheden</div>
+	</div>
+	<nav class="navbar navbar-toggleable-md navbar-full navbar-branded navbar-border hide-fullscreen">
+		<button class="navbar-toggler icon-menu" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">Menu<span class="sr-only">Collapsed</span></button>
+		<div class="collapse navbar-toggleable-md container clearfix" id="navbarResponsive">
+			<ul class="navbar-nav">
+				<li class="nav-item">
+					<a class="nav-link is-active " href="/">
+						<span class="kss-nav__name">Home</span></a>
+				</li>
+				<!--li class="nav-item">
+					<a class="nav-link dropdown-toggle " data-toggle="dropdown" href="section-atoms.html"><span class="kss-nav__ref">1</span> <span class="kss-nav__name">Graphics</span></a>
+					<ul class="dropdown-menu">
+						<li class="dropdown-item">
+							<a class="kss-nav__menu-link" href="section-atoms.html#kssref-atoms-buttons"><span class="kss-nav__ref ">1.1</span> <span class="kss-nav__name">Grafieken</span></a>
+						</li>
+						<li class="dropdown-item">
+							<a class="kss-nav__menu-link" href="section-atoms.html#kssref-atoms-forms"><span class="kss-nav__ref ">1.2</span> <span class="kss-nav__name">Kaarten</span></a>
+						</li>
+					</ul-->
+				</li>
+			</ul>
+		</div>
+	</nav>
+	
+	<article role="main" class="kss-main container">
+		<div id="kssref-0" class="kss-section kss-section--depth-0 kss-overview kss-style">
+			
+			<!--div class="row">
+				<div class="col-md-8">
+					<div class="well">
+						<div id="lv"></div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="well">
+					</div>
+				</div>
+			</div-->
+
+			<div class="col-md-12">
+				<p></p>
+			</div>
+			
+			<div class="row">
+				<div class="col-md-7">
+					<div class="well">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="select">
+									<select id= "gesl"></select>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="select">
+									<select id= "lftkls"></select>
+								</div>
+							</div>
+						</div>
+						<div id="sterfteperweek"></div>
+					</div>
+				</div>
+				<div class="col-md-5">
+					<div class="well">
+					<p><img alt="In de week van 8 tot en met 14 maart 2018 was de totale sterfte in Nederland sterk verhoogd (sterfte binnen 2 weken gerapporteerd - rondom 97% gerapporteerd). De sterfte was verhoogd in de leeftijdsgroep van 55-64 jaar en sterk verhoogd in de leeftijdsgroepen 65-74 jaar en 75 jaar en ouder. De sterfte was verhoogd in alle regio&#39;s in Nederland. " height="378" src="https://www.rivm.nl/Onderwerpen/M/Monitoring_sterftecijfers_Nederland/Afbeeldingen/Totale_sterfte_tot_en_met_11_april_2018.std?disposition=inline" title="Totale sterfte tot en met 14 maart 2018" width="567" /><br />Figuur. Totale sterfte in Nederland binnen 2 weken gerapporteerd (alle leeftijden en regio&rsquo;s gezamenlijk).</p>
+					<p><a href="https://www.rivm.nl/Onderwerpen/M/Monitoring_sterftecijfers_Nederland">Link: RIVM monitoring sterftecijfers</a></p>
+					</div>
+				</div>
+			</div>
+			
+			<!--div class="row">
+				<div class="col-md-6">
+					<div class="well">
+						<div id="lvkaart">
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="well">
+						<div id="lvgrafiek">
+							<span class=""></span>
+						</div>
+					</div>
+				</div>
+			</div-->
+			
+		</div>
+	</article>
+	
+	<div class="payoff">
+		<div class="logo"></div>
+	</div>	
+	<footer class="footer ">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-4">
+					<nav role="navigation" aria-labelledby="block-voet1-menu" id="block-voet1" class="block block-menu navigation menu--footer">
+						<h2 id="block-voet1-menu">Service</h2>
+						<ul class="navbar-nav">
+							<li><a href="//pdfcrowd.com/url_to_pdf/" title="De pagina opslaan als PDF">Opslaan als PDF</a></li>
+							<li class="nav-item"><a href="#" title="Cookies" class="nav-link">Cookies</a></li>
+							<li class="nav-item"><a href="#" title="Disclaimer" class="nav-link">Disclaimer</a></li>
+						</ul>
+					</nav>
+				</div>
+				<div class="col-sm-4">
+					<nav role="navigation" aria-labelledby="block-footer2-menu" id="block-footer2" class="block block-menu navigation menu--footer-2">
+						<h2 id="block-footer2-menu">Over deze site</h2>
+						<ul class="navbar-nav">
+							<li class="nav-item">
+								<a href="/over-deze-site" class="nav-link" data-drupal-link-system-path="node/10">Over deze site</a>
+							</li>
+							<li class="nav-item">
+								<a href="/wie-maakt-deze-site" title="Wie maakt deze site" class="nav-link">Wie maakt deze site?</a>
+							</li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!-- SCRIPTS -->
+	<script src="js/jquery.3.2.0.min.js"></script>
+	<script src="js/kss.js"></script>
+	<script src="js/prettify.js"></script>
+	<script src="js/kss-fullscreen.js"></script>
+	<script src="js/kss-guides.js"></script>
+	<script src="js/kss-markup.js"></script>
+	<script>
+	prettyPrint();
+	var kssFullScreen = new KssFullScreen({
+		idPrefix: 'kss-fullscreen-',
+		bodyClass: 'kss-fullscreen-mode',
+		elementClass: 'is-fullscreen'
+	});
+	var kssGuides = new KssGuides({
+		bodyClass: 'kss-guides-mode'
+	});
+	var kssMarkup = new KssMarkup({
+		bodyClass: 'kss-markup-mode',
+		detailsClass: 'kss-markup'
+	});
+	</script>
+
+	<script type="text/javascript" src="js/hc/highcharts.js"></script>
+	<script type="text/javascript" src="js/hc/highcharts-more.js"></script>
+	<script type="text/javascript" src="js/hc/exporting.js"></script>
+	<script type="text/javascript" src="js/hc/export-csv.js"></script>
+	<script type="text/javascript" src="js/hc/accessibility.src.js"></script>
+
+	<script type="text/javascript" src="js/hc/themes/chartTheme.js"></script>
+
+	<script type="text/javascript" src="graphs/sterfteperweek.js"></script>
+	
+</body>
+
+</html>
