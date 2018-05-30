@@ -33,15 +33,43 @@ $ctx = stream_context_create($postParams);
 $fp = @fopen($url, 'rb', false, $ctx);
 if (!$fp)
 {
-  throw new Exception("Problem with $url, $php_errormsg");
+  throw new Exception('Problem with $url, $php_errormsg');
 }
 
 $response = @stream_get_contents($fp);
 if ($response === false) 
 {
-  throw new Exception("Problem reading data from $url, $php_errormsg");
+  throw new Exception('Problem reading data from $url, $php_errormsg');
 }
 
-echo $url . $params;
+// # 
+// # STN,YYYYMMDD,   TN,   TG,   TX
+// # 
+// 260,20180101,   52,   68,   88
+// 260,20180102,   45,   65,   91
 
-echo $response;
+// Split by new line
+$arrLines = explode( PHP_EOL, $response);
+// var_dump($arrLines);
+
+$searchHeader = ' STN,';
+$newLine = "\r\n"; // double quoted to interpret as newline!!
+$strData = "";
+
+// echo '#start#' . $newLine;
+foreach($arrLines as $line) { 
+  if ($line[0] == '#') {
+    // echo strpos($line, 'STN,');
+    // strpos ( string $haystack , mixed $needle [, int $offset = 0 ] )
+    $searchPos = strpos($line, $searchHeader);
+    if ( $searchPos > 0 ) {
+      $strData .= trim(substr($line, $searchPos  ), ' ') . $newLine;
+    }
+  } elseif ( trim($line) != '' ) {
+    $strData .= trim($line, ' ') . $newLine;
+  }
+}
+// echo '#end#' . $newLine;
+// echo $url . $params . PHP_EOL;
+
+echo $strData;

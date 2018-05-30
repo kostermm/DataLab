@@ -16,7 +16,7 @@ function GetData(url, postData) {
     dataType: 'text',
     async: false,
     success: function (data) {
-      console.log(data);
+      // console.log(data);
       var lineSeparator = '\r\n',
         lines = [],
         columnCount = 0;
@@ -46,7 +46,7 @@ function GetData(url, postData) {
         // header line may contain headers; only retrieved if getHeaders = true
         if (lineNo == 0 && getHeaders) {
           $.each(items, function (itemNo, item) {
-            dataRow.push(item);
+            dataRow.push($.trim(item));
           });
 
           //Push row to data array
@@ -55,14 +55,14 @@ function GetData(url, postData) {
         } else if (items.length == columnCount) {
           // the rest of the lines contain data
           $.each(items, function (itemNo, item) {
-            dataRow.push((item));
+            dataRow.push($.trim(item));
           });
 
           //Push row to data array
           arrData.push(dataRow);
 
         } else {
-          console.log('CSV data row ' + lineNo + ' skipped: ' + items);
+          // console.log('CSV data row ' + lineNo + ' skipped: ' + items);
         }
       });
     },

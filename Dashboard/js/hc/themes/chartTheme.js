@@ -370,7 +370,7 @@ Highcharts.chartTheme = {
 		rules: [{
 			condition: {
 				callback: function() {
-					console.log(this.index, this.options.chart.type, this.title.textStr );
+					// console.log(this.index, this.options.chart.type, this.title.textStr );
 					return (this.options.chart.type !== 'bar' && this.chartWidth < 600);
 				}
 			},
@@ -386,7 +386,7 @@ Highcharts.chartTheme = {
 		},{
 			condition: {
 				callback: function() {
-					console.log(this.index, this.options.chart.type, this.title.textStr );
+					// console.log(this.index, this.options.chart.type, this.title.textStr );
 					return (this.options.chart.type == 'bar' && this.chartWidth < 600);
 				}
 			},

@@ -12,7 +12,13 @@
 	
 	<!--link rel="stylesheet" href="css/font-awesome.min.css"/--> 
 	
-	<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+  <style>
+    .chart {
+      width: 600px;
+      height: 200px;
+    }
+  </style>
 </head>
 
 <body id="kss-node">
@@ -71,35 +77,19 @@
 			</div>
 			
 			<div class="row">
-				<div class="col-md-9">
-					<div class="well" id="container">
+				<div class="col-md-7">
+					<div class="well">
 						<div class="row">
 							<div class="col-md-6">
-								<div class="select">
-									<select id= "beginjaar"></select>
-								</div>
+								<div id="container"></div>
 							</div>
 						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<div class="select">
-									<select id= "gesl"></select>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6">
-								<div class="select">
-									<select id= "lftkls"></select>
-								</div>
-							</div>
-						</div>
-						<div id="sterfte" class="chart"></div>
-						<div id="temperatuur" class="chart"></div>
-						<div id="lucht" class="chart"></div>
+						
+						<div id="sterfteperweek"></div>
+						<div id="temperatuur"></div>
 					</div>
 				</div>
-				<div class="col-md-3">
+				<div class="col-md-5">
 					<div class="well">
 					<p><img alt="In de week van 8 tot en met 14 maart 2018 was de totale sterfte in Nederland sterk verhoogd (sterfte binnen 2 weken gerapporteerd - rondom 97% gerapporteerd). De sterfte was verhoogd in de leeftijdsgroep van 55-64 jaar en sterk verhoogd in de leeftijdsgroepen 65-74 jaar en 75 jaar en ouder. De sterfte was verhoogd in alle regio&#39;s in Nederland. " height="378" src="https://www.rivm.nl/Onderwerpen/M/Monitoring_sterftecijfers_Nederland/Afbeeldingen/Totale_sterfte_tot_en_met_11_april_2018.std?disposition=inline" title="Totale sterfte tot en met 14 maart 2018" width="567" /><br />Figuur. Totale sterfte in Nederland binnen 2 weken gerapporteerd (alle leeftijden en regio&rsquo;s gezamenlijk).</p>
 					<p><a href="https://www.rivm.nl/Onderwerpen/M/Monitoring_sterftecijfers_Nederland">Link: RIVM monitoring sterftecijfers</a></p>
@@ -183,16 +173,15 @@
 
 	<script type="text/javascript" src="js/hc/highcharts.src.js"></script>
 	<script type="text/javascript" src="js/hc/highcharts-more.js"></script>
-	<script type="text/javascript" src="js/hc/exporting.js"></script>
-	<script type="text/javascript" src="js/hc/export-csv.js"></script>
-	<script type="text/javascript" src="js/hc/accessibility.src.js"></script>
+	<!-- <script type="text/javascript" src="js/hc/exporting.js"></script> -->
+	<!-- <script type="text/javascript" src="js/hc/export-csv.js"></script> -->
+	<!-- <script type="text/javascript" src="js/hc/accessibility.src.js"></script> -->
 
-	<script type="text/javascript" src="js/hc/themes/chartTheme.js"></script>
-	<!-- <script type="text/javascript" src="js/hc/syncCharts.js"></script> -->
-	
-	<script type="text/javascript" src="../js/GetData.js"></script>
-	<script type="text/javascript" src="../js/KNMI.js"></script>
-	<script type="text/javascript" src="graphs/dashboard.js"></script>
+  <!-- <script type="text/javascript" src="js/hc/themes/chartTheme.js"></script> -->
+  
+	<script type="text/javascript" src="js/hc/syncCharts.js"></script>
+
+	<script type="text/javascript" src="graphs/sync.js"></script>
 	
 </body>
 
