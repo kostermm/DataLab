@@ -7,8 +7,8 @@
 /*
   GetData will download a csv data file from given url
 */
-function GetData(url, postData) {
-  var arrData = [], getHeaders = true;
+function GetData(url, postData, skipRows) {
+  var arrData = [], skipRows = skipRows || 2;
 
   $.ajax(url, {
     method: 'POST',
@@ -43,17 +43,8 @@ function GetData(url, postData) {
           columnCount = items.length
         }
 
-        // header line may contain headers; only retrieved if getHeaders = true
-        if (lineNo == 0 && getHeaders) {
-          $.each(items, function (itemNo, item) {
-            dataRow.push($.trim(item));
-          });
-
-          //Push row to data array
-          arrData.push(dataRow);
-
-        } else if (items.length == columnCount) {
-          // the rest of the lines contain data
+        // header line may contain headers; only retrieved if skipRows = 0
+        if (lineNo > skipRows - 2 && line.length > 0) {
           $.each(items, function (itemNo, item) {
             dataRow.push($.trim(item));
           });

@@ -26,7 +26,7 @@ Highcharts.setOptions({
 		decimalPoint: ',',
 		thousandsSep: ' ',
 		loading: 'laden...',
-		noData: 'Geen gegevens geselecteerd',
+		noData: 'Geen gegevens beschikbaar',
 		contextButtonTitle: 'Exporteer grafiek',
 		printChart: 'Print grafiek',
 		downloadPNG: 'Download als PNG',
@@ -41,21 +41,23 @@ Highcharts.setOptions({
 			fontFamily: 'RijksoverheidSans, verdana, serif'
         },
 		backgroundColor: 'rgba(255, 255, 255, 0.0)',
+		
 		//Event below is for automatically positioning yAxis.axisTitle (http://jsfiddle.net/kL5md/21/)
-		events: {
-			load: function () {
-                var chart = this, yAxis = chart.yAxis[0];
-				if(chart.options.chart.type != 'bar' && yAxis.axisTitle != undefined) {
-					var bbWidth = yAxis.axisTitle.getBBox();
-					yAxis.update({
-						title: {
-							offset: -bbWidth.width
-						}
-					});
-				}
-			}
-		}
+		// events: {
+		// 	load: function () {
+    //             var chart = this, yAxis = chart.yAxis[0];
+		// 		if(chart.options.chart.type != 'bar' && yAxis.axisTitle != undefined) {
+		// 			var bbWidth = yAxis.axisTitle.getBBox();
+		// 			yAxis.update({
+		// 				title: {
+		// 					offset: -bbWidth.width
+		// 				}
+		// 			});
+		// 		}
+		// 	}
+		// }
 	}
+
 });
  
 Highcharts.chartTheme = {
@@ -67,6 +69,13 @@ Highcharts.chartTheme = {
 		// Explicitly tell the width and height of a chart
 		width: null,
 		height: null
+	},
+	noData: {
+		style: {
+			fontWeight: 'bold',
+			fontSize: '15px',
+			color: '#303030'
+		}
 	},
 	colors: categorie,
 	title: {
@@ -243,7 +252,7 @@ Highcharts.chartTheme = {
                 duration: 1000
 			},
 			dataLabels: {
-				enabled: true,
+				enabled: false,
 				align: 'left',
 				verticalAlign: 'middle',
 				color: '#000000',

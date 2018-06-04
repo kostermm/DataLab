@@ -22,7 +22,7 @@
 // });
 
 function bindEvents() {
-  $('#container .chart').bind('mousemove touchmove touchstart', function(e) {
+  $('#chartsContainer .chart').bind('mousemove touchmove touchstart', function(e) {
     var currentChart = $(this).highcharts(),
       chart,
       event = currentChart.pointer.normalize(e.originalEvent),

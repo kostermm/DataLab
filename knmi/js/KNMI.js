@@ -5,9 +5,9 @@
 */
 
 
-function getTemperatureData(bYear) {
-  url = '/knmi.php';
-  params = '&byear='+ (bYear || '2016') + '&bmonth=1&bday=1&eyear=2018&emonth=12&eday=31';
+function getTemperatureData(bYear, eYear) {
+  url = 'knmi/';
+  params = '&byear='+ (bYear || '2018') + '&bmonth=1&bday=1&eyear='+ (eYear || '2018') + '&emonth=12&eday=31';
 
 
   //Load CSV data (slice result of array to skip headers)
@@ -26,6 +26,8 @@ function parseCSV (arrCSV, skipColumns ) {
   var rows = [], week = -1, date = Date;
   var dayToUse = 3;
   var date = new Date();
+
+  // console.log('parseCSV', arrCSV);
 
   $.each(arrCSV, function (rowNo, row) {
     // remove columns
