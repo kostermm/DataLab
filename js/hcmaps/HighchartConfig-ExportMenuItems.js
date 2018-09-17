@@ -1,6 +1,6 @@
 /* Load these modules/plugins after loading Highcharts */
 <script src="<path>/exporting.js"></script>
-<script src="<path>/export-csv.js"></script>
+<script src="<path>/export-data.js"></script>
     
 /* Use these settings for exportin in the chart configuration */
 exporting: {
