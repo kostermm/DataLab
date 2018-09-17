@@ -27,7 +27,7 @@ var defaultChartOptions = {
 		type: 'spline',
 		zoomType: 'x',
 	},
-	colors: categorie,
+	colors: ["#7cb5ec", "#434348", "#e85300", "#f7a35c", "#8085e9", "#f15c80", "#e4d354", "#2b908f", "#f45b5b", "#91e8e1"],
 	// title: {
 	// 	text: 'Aantal sterfgevallen per week'
 	// },
@@ -59,13 +59,24 @@ var defaultChartOptions = {
 		}
 	},
 	legend: {
-		enabled: false
+		enabled: true,
+		align: 'right',
+		layout: 'proximate'
 	},
 	tooltip: {
 		// headerFormat: '<large>Weeknummer: <strong>{point.key}</strong></large><br>',
 		shared: true,
 		valueDecimals: 0,
 	},
+
+	plotOptions: {
+		series: {
+			marker: {
+				radius: 2,
+				symbol: 'circle'
+			}
+		}
+	}
 	// series: []
 }
 
@@ -106,7 +117,7 @@ var chartsConfig = {
 	sterfte: {
 		url: "https://opendata.cbs.nl/ODataApi/odata/70895ned/TypedDataSet?$filter=(Geslacht+eq+'gesl')+and+LeeftijdOp31December+eq+'lftkls'&$select=Perioden,Overledenen_1",
 		chartOptions: { 
-			chart: { renderTo: 'sterfte' },
+			// chart: { renderTo: 'sterfte' },
 			title: { text: 'Aantal sterfgevallen per week' }, 
 			subtitle: {	text: selectConfig.selectedOptions.gesl.name + ', ' + selectConfig.selectedOptions.lftkls.name },
 			yAxis: {	title: { text: 'Aantal'	}}
@@ -115,17 +126,17 @@ var chartsConfig = {
 	lucht: {
 		url: 'https://api.luchtmeetnet.nl/station/measurement_data?station_id=170&component_id=2&start_date=beginJaar/01/01&end_date=eindeJaar/12/31&daily_averages=1',
 		chartOptions: { 
-			chart: { renderTo: 'lucht' },
+			// chart: { renderTo: 'lucht' },
 			title: { text: 'Fijnstof PM 2.5' }, 
-			subtitle: null, 
+			// subtitle: null, 
 			yAxis: {	title: { text: 'μg/m3'	}}}
 	},
 	temperatuur: {
 		url: '../knmi.php',
 		chartOptions: { 
-			chart: { renderTo: 'temperatuur' },
+			// chart: { renderTo: 'temperatuur' },
 			title: { text: 'Temperatuur' }, 
-			subtitle: null, 
+			// subtitle: null, 
 			yAxis: {	title: { text: '°C'	}}
 		}
 	}
@@ -135,7 +146,7 @@ var dashboardCharts = {}, xAxisSettings = {};
 
 // Code to run at page load: load select options, create (empty charts)
 $(function () {
-	// Fill beginjaar and set default
+	// Fill select.jaar and set default values
 	var today = new Date();
 	for(var i = 2010	; i <= today.getFullYear(); i++){
 		$('select.jaar').append("<option value='" + i + "'>" + i + "</option>")
@@ -146,15 +157,8 @@ $(function () {
 	if(selectConfig.selectedOptions.begin != undefined) {
 		$('select#einde.jaar').find('option[value=' + selectConfig.selectedOptions.einde.jaar + ']').prop('selected', true);
 	}
-	// Set Highcharts general theme
-	Highcharts.setOptions(Highcharts.chartTheme);
-
-	// Create charts from chartsConfig
-	$.each(chartsConfig, function(key, item){
-		dashboardCharts[key] = createChart(item.chartOptions);
-	})
-
-	// load options from selectConfig
+	
+	// load options from selectConfig for sex and age classes
 	$.each(selectConfig, function(key, item){
 		if( $('#'+key).length )
 		loadSelect(key);
@@ -181,19 +185,35 @@ $(function () {
 			}
 		}
 	});
-	
+
+	// Set Highcharts general theme
+	// Highcharts.setOptions(Highcharts.chartTheme);
+
+	// Create charts from chartsConfig
+	$.each(chartsConfig, function(key, item){
+		dashboardCharts[key] = createChart(key, item.chartOptions);
+	})
+	// Bind events to sync interaction
+	// bindEvents(); 
+
 	// Trigger change event to load data and update charts
 	$('#begin.jaar').trigger('change');
+
+
 });
 
 /* Create Highcharts charts possibly without series to create empty chart
 // container: id of container to render chart
 // options: chartOptions, merged with defaultChartOptions
 */
-function createChart(options) {
+function createChart(id, options) {
 	var chartOptions = $.extend(true, defaultChartOptions, options );
-
-	return new Highcharts.Chart( chartOptions );
+	var chartContainer = $('<div id="' + id + '" class="chart">')
+                .appendTo('#chartsContainer')
+								.highcharts( chartOptions );
+								
+	return chartContainer.highcharts();
+	// new Highcharts.Chart( chartOptions );
 }
 
 /* Update chart
@@ -279,12 +299,22 @@ function getSterfte() {
 // Function to get Temparature data and update chart
 function getTemperature(dataCol) {
 	// dataCol: choose one of three dataCols: 1:Tmin, 2:Tgem, 3:Tmax
-	var dataCol = dataCol || 2;
-	var seriesData = [];
-
+	var dataCols = {
+		Tmin: 1, 
+		Tgem: 2,
+		Tmax: 3
+	}
 	// Get Temparature data through JS function KNMI/getTemperatureData
 	var arrTemperature = getTemperatureData(selectConfig.selectedOptions.begin.jaar);
-	console.log('TEMPERATUUR', arrTemperature);
+	// console.log('TEMPERATUUR', arrTemperature);
+	$.each(dataCols, function(colName, dataCol){
+		addTemparatureColumn(arrTemperature, colName, dataCol);
+	})
+}
+// Add one datacolumn from temp array
+function addTemparatureColumn (arrTemperature, colName, dataCol){
+	var seriesData = [];
+	var dataCol = dataCol || 2;
 
 	// Process data array to seriesData array 
 	arrTemperature.forEach( function(item, i, arr) {
@@ -293,9 +323,11 @@ function getTemperature(dataCol) {
 	})
 	// Convert day values to week values
 	seriesData = convertDayToWeekData(seriesData);
-	
-	updateChart(dashboardCharts['temperatuur'], { id: 'Temperatuur', name: 'Temperatuur', data: seriesData } );
+
+	updateChart(dashboardCharts['temperatuur'], { id: 'temp_'+dataCol, name: colName || 'Temperatuur '+dataCol	, data: seriesData } );
 }
+
+
 
 // Function to get Luchtkwaliteit data and update chart
 function getLucht(component) {
@@ -332,7 +364,7 @@ function getLucht(component) {
 			// Check for data for requested component
 			if( JSON.parse(data)[component] != undefined ){
 				data = JSON.parse(data)[component].measurements;
-				console.log('LUCHT', data);
+				// console.log('LUCHT', data);
 				
 				// Convert JSON data to 2d-array with x,y-values
 				$.each(data, function(index, item) {
