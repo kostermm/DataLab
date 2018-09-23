@@ -55,25 +55,10 @@
 	<article role="main" class="kss-main container">
 		<div id="kssref-0" class="kss-section kss-section--depth-0 kss-overview kss-style">
 			
-			<!--div class="row">
-				<div class="col-md-8">
-					<div class="well">
-						<div id="lv"></div>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="well">
-					</div>
-				</div>
-			</div-->
-
-			<div class="col-md-12">
-				<p></p>
-			</div>
-			
 			<div class="row">
-				<div class="col-md-9">
-					<div class="well" id="chartsContainer">
+				<div class="col-md-8">
+					<div class="well" id="container">
+						<!-- select dropdowns -->
 						<div class="row">
 							<div class="col-md-6">
 								<label for="begin">Begin jaar</label>
@@ -89,7 +74,7 @@
 										<select id= "einde" class="jaar"></select>
 									</div>
 								</div>
-							</div>
+						</div>
 						<div class="row">
 							<div class="col-md-6"><label for="gesl">Geslacht</label>
 								<div class="select">
@@ -105,34 +90,19 @@
 								</div>
 							</div>
 						</div>
-						<div id="sterfte" class="chart"></div>
-						<div id="temperatuur" class="chart"></div>
-						<div id="lucht" class="chart"></div>
+						
+						<!-- chart containers -->
+						<div class="well" id="chartsContainer"></div>
+						
 					</div>
 				</div>
-				<div class="col-md-3">
+				<div class="col-md-4">
 					<div class="well">
-					<p><img alt="In de week van 8 tot en met 14 maart 2018 was de totale sterfte in Nederland sterk verhoogd (sterfte binnen 2 weken gerapporteerd - rondom 97% gerapporteerd). De sterfte was verhoogd in de leeftijdsgroep van 55-64 jaar en sterk verhoogd in de leeftijdsgroepen 65-74 jaar en 75 jaar en ouder. De sterfte was verhoogd in alle regio&#39;s in Nederland. " height="378" src="https://www.rivm.nl/Onderwerpen/M/Monitoring_sterftecijfers_Nederland/Afbeeldingen/Totale_sterfte_tot_en_met_11_april_2018.std?disposition=inline" title="Totale sterfte tot en met 14 maart 2018" width="567" /><br />Figuur. Totale sterfte in Nederland binnen 2 weken gerapporteerd (alle leeftijden en regio&rsquo;s gezamenlijk).</p>
+					<p>In de week van 8 tot en met 14 maart 2018 was de totale sterfte in Nederland sterk verhoogd (sterfte binnen 2 weken gerapporteerd - rondom 97% gerapporteerd). De sterfte was verhoogd in de leeftijdsgroep van 55-64 jaar en sterk verhoogd in de leeftijdsgroepen 65-74 jaar en 75 jaar en ouder. De sterfte was verhoogd in alle regio&#39;s in Nederland. </p>
 					<p><a href="https://www.rivm.nl/Onderwerpen/M/Monitoring_sterftecijfers_Nederland">Link: RIVM monitoring sterftecijfers</a></p>
 					</div>
 				</div>
 			</div>
-			
-			<!--div class="row">
-				<div class="col-md-6">
-					<div class="well">
-						<div id="lvkaart">
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6">
-					<div class="well">
-						<div id="lvgrafiek">
-							<span class=""></span>
-						</div>
-					</div>
-				</div>
-			</div-->
 			
 		</div>
 	</article>
@@ -195,7 +165,7 @@
 	<script type="text/javascript" src="js/hc/highcharts.src.js"></script>
 	<script type="text/javascript" src="js/hc/highcharts-more.js"></script>
 	<script type="text/javascript" src="js/hc/exporting.js"></script>
-	<script type="text/javascript" src="js/hc/export-csv.js"></script>
+	<script type="text/javascript" src="js/hc/export-data.js"></script>
 	<script type="text/javascript" src="js/hc/no-data-to-display.js"></script>
 	<script type="text/javascript" src="js/hc/broken-axis.js"></script>
 	<script type="text/javascript" src="js/hc/accessibility.src.js"></script>
