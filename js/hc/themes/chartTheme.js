@@ -303,29 +303,28 @@ Highcharts.chartTheme = {
 			border: '0px',
 			background: '#01689B',
 			padding: '3px',
-        },
+		},
 		menuItemStyle: {
-            padding: '0 10px',
-            color: '#ffffff',
-            fontSize: '13px',
+			padding: '0 10px',
+			color: '#ffffff',
+			fontSize: '13px',
 			fontWeight: 'bold'
-            },
-        menuItemHoverStyle: {
-            background: '#ecf5fb',
-            color: '#000000'
-            },
-        buttonOptions: {
+		},
+		menuItemHoverStyle: {
+			background: '#ecf5fb',
+			color: '#000000'
+		},
+		buttonOptions: {
 			symbolStroke: '#01689B', //Not needed anymore since 'the Hamburger' is replaced with icons.
 			height: 30,
 			width: 30
-        }
-    },
+		}
+	},
 	exporting: {
 		credits: {
 			enabled: true,
 			text: 'rivm.nl',
 			href: 'https://www.rivm.nl',
-			
 			style: {
 				fontSize: '11px',
 				color: '#505050',
@@ -343,7 +342,7 @@ Highcharts.chartTheme = {
 				symbol: 'url(./js/hc/themes/images/download.png)',
 				//symbol: 'url(/modules/custom/sdv_highcharts/js/images/download.png)',
 				verticalAlign: 'bottom',
-				y: 10,
+				y: 20,
 				symbolX: 22,
 				symbolY: 22,
 				theme: {
@@ -385,7 +384,7 @@ Highcharts.chartTheme = {
 				//symbol: 'url(/modules/custom/sdv_highcharts/js/images/printer.png)',
 				verticalAlign: 'bottom',
 				x: -30,
-				y: 10,
+				y: 20,
 				theme: {
 					fill: 'rgba(255, 255, 255, 0.0)',
 					states: {
