@@ -64,7 +64,7 @@ Highcharts.chartTheme = {
 		//spacing: [10, 10, 15, 0],
 		//VZinfo: [49, 5, 5, 79]
 		marginLeft: 70,
-		marginRight: 120,
+		marginRight: 140,
 		// Explicitly tell the width and height of a chart
 		width: null,
 		height: null
@@ -172,7 +172,7 @@ Highcharts.chartTheme = {
 		y: 15,
 		itemStyle: {
 			fontWeight: 'normal',
-			fontSize: '12pt',
+			fontSize: '11pt',
 			color: '#000000'
 		},
 		itemHoverStyle: {
@@ -182,7 +182,7 @@ Highcharts.chartTheme = {
 			color: '#c8c8c8'
 		},
 		align: 'right',
-		layout: 'horizontal', // 'proximate',
+		layout: 'proximate', // 'proximate',
 		verticalAlign: 'top'  // When the layout option is proximate, the verticalAlign option doesn't apply.
 	},
 	tooltip: {
