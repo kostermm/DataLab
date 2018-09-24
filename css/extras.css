@@ -24,6 +24,20 @@
   padding: 9px;
   border-radius: 6px;
 }
+.kss-style h1 {
+  font-size: 24px;
+}
+.kss-style h2 {
+  font-size: 20px;
+}
+.kss-style h3 {
+  font-size: 18px;
+}
+.kss-style h1, .kss-style h2, .kss-style  h3, .kss-style ul {
+  margin-top: 12px;
+  margin-bottom: 8px;
+}
+
 
 /* Read more state
 https://codepen.io/Idered/pen/AeBgF*/
@@ -130,4 +144,5 @@ select::-ms-expand {
   display: block;
   float: left;
   width: 5em;
+  margin-bottom: 4px;
 }

@@ -7,18 +7,18 @@ $params = 'stns=260&vars=TN:TG:TX&byear=2018&bmonth=1&bday=2&eyear=2018&emonth=4
 foreach($_REQUEST as $key => $val)
 {
   switch($key)
-    {
-        case 'bday':
-        case 'bmonth':
-        case 'byear':
-        case 'eday':
-        case 'emonth':
-        case 'eyear':
-          $params = $key . '=' . $val . '&' . $params;
-          break;
-       default: // do nothing for now
-          break;
-    }
+  {
+    case 'bday':
+    case 'bmonth':
+    case 'byear':
+    case 'eday':
+    case 'emonth':
+    case 'eyear':
+      $params = $key . '=' . $val . '&' . $params;
+      break;
+    default: // do nothing for now
+      break;
+  }
 
 }
 
