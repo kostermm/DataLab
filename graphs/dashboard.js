@@ -441,24 +441,44 @@ function getTemperature() {
 	// Get Temparature data through JS function KNMI/getTemperatureData
 	var arrTemperature = getTemperatureData(selectConfig.selectedOptions.begin.jaar);
 	// console.log('TEMPERATUUR', arrTemperature);
-	$.each(dataCols, function(colName, dataCol){
-		addTemparatureColumn(arrTemperature, colName, dataCol);
-	})
+	// Add average
+	addTemparatureColumn(arrTemperature, 'Tgem', dataCols);
+	addTemparatureColumn(arrTemperature, 'Tmin-Tmax', dataCols);
+	// $.each(dataCols, function(colName, dataCol){
+	// 	addTemparatureColumn(arrTemperature, colName, dataCol);
+	// })
 }
 // Add one datacolumn from temp array
-function addTemparatureColumn (arrTemperature, colName, dataCol){
-	var seriesData = [];
-	var dataCol = dataCol || 2;
+function addTemparatureColumn (arrTemperature, colName, dataCols){
+	var seriesData = [], date, dataCol2;
+	var seriesType = 'line';
+	var dataCol = dataCols[colName] || 2;
+	
+	if(colName.indexOf('-') > 0) {
+		seriesType = 'arearange';
+		dataCol = dataCols[colName.substring(0,colName.indexOf('-'))];
+		dataCol2 = dataCols[colName.substring(colName.indexOf('-')+1)];
+	}
 
 	// Process data array to seriesData array 
 	arrTemperature.forEach( function(item, i, arr) {
+		date = new Date(item[0]);
 		// Push time/period and data value to series as array
-		seriesData.push([ item[0], item[dataCol] ] );
+		if(item[0].getDay() == 4) {
+			// seriesData.push([ item[0], item[dataCol] ] );
+			if(colName.indexOf('-') > 0) {
+				seriesData.push({x: date, low: item[dataCol], high: item[dataCol2], name: date.getFullYear() + ' wk ' + 'week'});
+			} else {
+				seriesData.push({x: date, y: item[dataCol], name: date.getFullYear() + ' wk ' + 'week'});
+			}
+		}
+		
 	})
 	// Convert day values to week values
-	seriesData = convertDayToWeekData(seriesData);
+	// 	seriesData = convertDayToWeekData(seriesData);
 
-	updateChart(dashboardCharts['temperatuur'], { id: 'temp_'+dataCol, name: colName || 'Temperatuur '+dataCol	, data: seriesData } );
+	updateChart(dashboardCharts['temperatuur'], { id: 'temp_'+dataCol, name: colName || 'Temperatuur '+dataCol
+		, data: seriesData, type: seriesType, color: Highcharts.getOptions().colors[0] } );
 }
 
 
@@ -577,3 +597,21 @@ function mergeWeekOrphans(arrData) {
 	// 	return [date.getFullYear().toString() + ('0'+ week).slice(-2), item[1]];
 	// })
 }
+
+	//function to add days to a given date. 
+	function addDays(startDate,numberOfDays)
+	{
+		var returnDate = new Date(
+								startDate.getFullYear(),
+								startDate.getMonth(),
+								startDate.getDate()+numberOfDays,
+								startDate.getHours(),
+								startDate.getMinutes(),
+								startDate.getSeconds());
+		return returnDate;
+	}
+	Date.prototype.getWeek = function () {
+    var onejan = new Date(this.getFullYear(), 0, 1);
+		// return Math.ceil((((this - onejan) / 86400000) + onejan.getDay() + 1) / 7);
+		return Math.ceil((((new Date(this.getFullYear(), this.getMonth(), this.getDate()) - onejan) / 86400000) + onejan.getDay() + 1) / 7);
+	};

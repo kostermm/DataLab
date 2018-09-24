@@ -202,6 +202,7 @@ Highcharts.chartTheme = {
 	plotOptions: {
 		line: {
 			lineWidth: 3,
+			zIndex: 1,
 			marker: {
 				enabled: false
 			}
@@ -216,6 +217,17 @@ Highcharts.chartTheme = {
 			lineWidth: 0,
 			marker: {
 				enabled: false
+			}
+		},
+		arearange: {
+			showInLegend: true,
+			lineWidth: 0,
+			linkedTo: ':previous',
+			color: Highcharts.getOptions().colors[0],
+			fillOpacity: 0.3,
+			zIndex: 0,
+			marker: {
+					enabled: false
 			}
 		},
 		column: {
@@ -429,4 +441,4 @@ Highcharts.chartTheme = {
 };
 
 // Apply the theme
-// var highchartsOptions = Highcharts.setOptions(Highcharts.theme);
+var highchartsOptions = Highcharts.setOptions(Highcharts.chartTheme);
