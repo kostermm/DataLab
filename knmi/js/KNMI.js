@@ -34,7 +34,7 @@ function parseCSV (arrCSV, skipColumns ) {
     row.splice(skipColumns[0],1);
     // parse date, check for dayToUse and filter
     date = parseDate(row[0]);
-      row[0] = date.toLocaleDateString("en-US");
+      row[0] = date;//.toLocaleDateString("en-US");
       
       row.forEach( function(value, i, arr) {
         if( i == 0 ) {

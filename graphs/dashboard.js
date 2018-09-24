@@ -20,53 +20,120 @@ function loadSelect(id, selectedOption) {
 		}
 	});
 }
+/*
+	tickPositioner
+
+	 xAxis: {
+        tickPositions: [0, 1, 2, 4, 8]
+    },
+
+    yAxis: {
+        tickPositioner: function () {
+            var positions = [],
+                tick = Math.floor(this.dataMin),
+                increment = Math.ceil((this.dataMax - this.dataMin) / 6);
+
+            if (this.dataMax !== null && this.dataMin !== null) {
+                for (tick; tick - increment <= this.dataMax; tick += increment) {
+                    positions.push(tick);
+                }
+            }
+            return positions;
+        }
+    },
+
+*/
+
 // Default charts options, specific options like titles etc are set through chartsConfig
 var defaultChartOptions = {
 	chart: {
 		// renderTo: container,
 		type: 'spline',
 		zoomType: 'x',
+		height: 250
 	},
-	colors: ["#7cb5ec", "#434348", "#e85300", "#f7a35c", "#8085e9", "#f15c80", "#e4d354", "#2b908f", "#f45b5b", "#91e8e1"],
+	colors: ["#7cb5ec", "#434348", "#e85300"], // "#f7a35c", "#8085e9", "#f15c80", "#e4d354", "#2b908f", "#f45b5b", "#91e8e1"],
 	// title: {
 	// 	text: 'Aantal sterfgevallen per week'
 	// },
 	xAxis: {
-		type: 'linear',
-		title: {
-			text: 'Week'
-		},
+		type: 'datetime',
+			// title: {
+			// 	text: 'Week'
+			// },
 		startOnTick: true,
-		minTickInterval: 1,			
-		allowDecimals: false,
+		// endOndTick: true,	
+		minTickInterval: 5,			
+		// tickPositions: [201801, 201813, 201826, 201839],
+		// tickPositioner: function () {
+		// 	var positions = [],
+    //             tick = Math.floor(this.dataMin),
+    //             increment = 13; // Kwartaal interval
+
+    //         if (this.dataMax !== null && this.dataMin !== null) {
+    //             for (tick; tick - increment <= this.dataMax; tick += increment) {
+    //                 positions.push(tick);
+    //             }
+    //         }
+    //         return positions;
+		// },
 		labels: {
 			enabled: true,
 			// rotation: 90,
-			formatter: function () {
-				// Use thousands separator for four-digit numbers too
-				if ( (this.value / 100) >= 2000 && (this.value / 100) <= 2020 )  {
-						// return Math.floor(this.value / 100) + ' ' +  this.value % 100
-						return "'" + this.value.toString().substr(2,2) + ' <br/>' +  this.value % 100
-				} 
-				return label;
-			}
+				// formatter: function () {
+				// 	// Use thousands separator for four-digit numbers too
+				// 	if ( (this.value / 100) >= 2000 && (this.value / 100) <= 2020 )  {
+				// 			// return Math.floor(this.value / 100) + ' ' +  this.value % 100
+				// 			return "'" + this.value.toString().substr(2,2) + ' <br/>' +  this.value % 100
+				// 	} 
+				// 	return label;
+				// }
 		},
 		// tickInterval: 10
 	},
 	yAxis: {
 		title: {
 			text: 'Aantal'
-		}
-	},
-	legend: {
-		enabled: true,
-		align: 'right',
-		layout: 'proximate'
+		}	
 	},
 	tooltip: {
-		// headerFormat: '<large>Weeknummer: <strong>{point.key}</strong></large><br>',
+		headerFormat: '<large><strong>{point.x:%e-%b-%Y}</strong></large><br>',
 		shared: true,
 		valueDecimals: 0,
+		formatter: function() {
+			var points = this.points, pointsLength = points.length;
+			var tooltipMarkup =	 pointsLength ? '<span style="font-size: 10px">' + points[0].key + '</span><br/>' : '';
+						
+			$.each(points, function(index, item) {
+				tooltipMarkup += '<b>' + this.series.name +'</b><br/>' +
+					// Highcharts.dateFormat('%e - %b - %Y', new Date(this.x))
+					new Date(this.x).format('shortDateDay') + ': ' + Highcharts.numberFormat(this.y,-1) + 
+						(this.point.high != undefined ? ' - ' + Highcharts.numberFormat(this.point.high,-1) : '');
+			})
+			
+			return tooltipMarkup;
+		},
+		credits: {
+			text: 'rivm.nl',
+			href: 'https://www.rivm.nl'
+		}
+		/*
+			formatter: function () {
+            var points = this.points;
+            var pointsLength = points.length;
+            var tooltipMarkup = pointsLength ? '<span style="font-size: 10px">' + points[0].key + '</span><br/>' : '';
+            var index;
+            var y_value_kwh;
+
+            for(index = 0; index < pointsLength; index += 1) {
+              y_value_kwh = (points[index].y/1000).toFixed(2);
+
+              tooltipMarkup += '<span style="color:' + points[index].series.color + '">\u25CF</span> ' + points[index].series.name + ': <b>' + y_value_kwh  + ' kWh</b><br/>';
+            }
+
+            return tooltipMarkup;
+        }
+		*/
 	},
 
 	plotOptions: {
@@ -98,7 +165,7 @@ var selectConfig = {
 			name: 'Totaal mannen en vrouwen'
 		},
 		begin: {
-			jaar: 2018,
+			jaar: 2017,
 			maand: 1,
 			dag: 1
 		},
@@ -117,27 +184,59 @@ var chartsConfig = {
 	sterfte: {
 		url: "https://opendata.cbs.nl/ODataApi/odata/70895ned/TypedDataSet?$filter=(Geslacht+eq+'gesl')+and+LeeftijdOp31December+eq+'lftkls'&$select=Perioden,Overledenen_1",
 		chartOptions: { 
-			// chart: { renderTo: 'sterfte' },
-			title: { text: 'Aantal sterfgevallen per week' }, 
+			// title: { text: 'Aantal sterfgevallen per week' }, 
 			subtitle: {	text: selectConfig.selectedOptions.gesl.name + ', ' + selectConfig.selectedOptions.lftkls.name },
-			yAxis: {	title: { text: 'Aantal'	}}
+			xAxis: { 
+				labels: {
+					enabled: true
+				},
+				opposite: true
+			},
+			yAxis: {	title: { text: 'aantal/week'	}},
+			credits: {
+				enabled: false
+			}
 		}
 	},
 	lucht: {
 		url: 'https://api.luchtmeetnet.nl/station/measurement_data?station_id=170&component_id=2&start_date=beginJaar/01/01&end_date=eindeJaar/12/31&daily_averages=1',
 		chartOptions: { 
-			// chart: { renderTo: 'lucht' },
-			title: { text: 'Fijnstof PM 2.5' }, 
-			// subtitle: null, 
-			yAxis: {	title: { text: 'μg/m3'	}}}
+			// title: { text: 'Fijnstof PM 2.5' }, 
+			subtitle: null, 
+			xAxis: { 
+				labels: {
+					enabled: true
+				},
+				opposite: false
+			},
+			yAxis: {	title: { text: 'μg/m3'	}}},
+			credits: {
+				enabled: false
+			}
 	},
 	temperatuur: {
 		url: '../knmi.php',
 		chartOptions: { 
-			// chart: { renderTo: 'temperatuur' },
-			title: { text: 'Temperatuur' }, 
-			// subtitle: null, 
-			yAxis: {	title: { text: '°C'	}}
+			// title: { text: 'Temperatuur' }, 
+			subtitle: null, 
+			xAxis: { 
+				labels: {
+					enabled: true
+				},
+				opposite: false
+			},
+			yAxis: {
+				title: { text: '°C'	},
+				max: 30,
+				min: -10,
+				tickInterval: 10
+			},
+			tooltip: { valueDecimals: 1 },
+			credits: {
+				enabled: true,
+				text: 'rivm.nl',
+				href: 'https://www.rivm.nl'
+			}
 		}
 	}
 }
@@ -170,12 +269,22 @@ $(function () {
 
 		if( this.selectedOptions.length > 0 ){
 			if( $(this).hasClass('jaar') ){
-				selectConfig.selectedOptions[selectId].jaar = Number(this.selectedOptions[0].value);
+				switch(selectId) {
+					case 'begin':
+						$('select#einde')[0].value = Math.max(this.selectedOptions[0].value, Number($('select#einde')[0].value));
+						break;
+					case 'einde':
+						$('select#begin')[0].value = Math.min(this.selectedOptions[0].value, Number($('select#begin')[0].value));
+						break;
+				}
+
+				selectConfig.selectedOptions['begin'].jaar = Number($('select#begin')[0].value);
+				selectConfig.selectedOptions['einde'].jaar = Number($('select#einde')[0].value);
 
 				// Update all charts
 				getSterfte();
 				getTemperature();
-				getLucht();
+				// getLucht();
 			} else {
 				selectConfig.selectedOptions[selectId].key = this.selectedOptions[0].value;
 				selectConfig.selectedOptions[selectId].name = this.selectedOptions[0].text;
@@ -224,6 +333,7 @@ function createChart(id, options) {
 function updateChart(chart, series, subtitle) {
 	console.log('update', series);
 	var subTitle = null;
+	var axisData = [], categories = []	;
 
 	// Remove this serie first
 	if( series.id != undefined && chart.get(series.id) != undefined ){
@@ -235,6 +345,8 @@ function updateChart(chart, series, subtitle) {
 	} else {
 		// Add series
 		chart.addSeries(series, true);
+
+		
 	}
 	// Update subtitle
 	if( subtitle != undefined ){
@@ -283,13 +395,35 @@ function getSterfte() {
 					){
 						weekNumber = Number(item.Perioden.substring(0,4)) * 100 + Number(item.Perioden.substring(6,8));
 						// Push time/period and data value
+						// seriesData.push([ weekNumber, Number(item.Overledenen_1) ]);
 						seriesData.push([ weekNumber, Number(item.Overledenen_1) ]);
 				}
 			});	 
 			// Merge orphans at start/end of year:  week 0/53
 			seriesData = mergeWeekOrphans(seriesData)
+			var seriesDataDate = [], week, year, date;
 
-			updateChart(dashboardCharts['sterfte'], { id: 'Sterfte', name: 'Sterfte', data: seriesData }
+			$.each(seriesData, function(index) {
+				// ((week)*7)+NewYear-(WEEKDAY(NewYear;2)-4)+(INT(WEEKDAY(NewYear;2)/5)-1)*7
+				week = this[0]%100;
+				year = Math.floor(this[0]/100);
+				var NewYear = new Date(year, 0, 1); // month is zero-based
+				var NewYearWeekDay = NewYear.getDay();
+				NewYearWeekDay = NewYearWeekDay == 0 ? 7 : NewYearWeekDay;
+				date = addDays(NewYear, ((week * 7) - (NewYearWeekDay-4) + (Math.floor(NewYearWeekDay/5)-1)*7)) ;
+
+				if( week == 1 || week >= 52 ){
+					console.log(year, week, this[0], NewYear, NewYear.getDay(), date);
+				}
+				
+				seriesDataDate.push({x: date, y:this[1], name: year + ' wk ' + week});
+				if((this[0]%100) > 51) {
+					console.log(this[0]);
+				}
+			});
+			console.log(seriesDataDate);
+
+			updateChart(dashboardCharts['sterfte'], { id: 'Sterfte', name: 'Sterfte', data: seriesDataDate }
 				, selectConfig.selectedOptions.gesl.name + ', ' + selectConfig.selectedOptions.lftkls.name );
 			
 		}
@@ -297,7 +431,7 @@ function getSterfte() {
 }
 
 // Function to get Temparature data and update chart
-function getTemperature(dataCol) {
+function getTemperature() {
 	// dataCol: choose one of three dataCols: 1:Tmin, 2:Tgem, 3:Tmax
 	var dataCols = {
 		Tmin: 1, 
@@ -399,7 +533,8 @@ function convertDayToWeekData(arrData, dayToUse) {
 		var week = Math.floor((date - firstDayOfYear)/_MS_PER_DAY/7) +1;
 
 		// console.log(date.toLocaleDateString("nl-NL"), 'week: ', week);
-		return [ date.getFullYear() * 100 + week, item[1]];
+		// return [ date.getFullYear() * 100 + week, item[1]];
+		return [ date, item[1]];
 	})
 }
 

@@ -56,6 +56,11 @@ Highcharts.theme = {
     lang: {
       decimalPoint: ',',
       thousandsSep: '.',
+
+      months: ['januari', 'februari', 'maart', 'april', 'mei', 'juni', 'juli', 'augustus', 'september', 'oktober', 'november', 'december'],
+      weekdays: ['zondag', 'maandag', 'dinsdag', 'woensdag', 'donderdag', 'vrijdag', 'zaterdag'],
+      shortMonths: ['jan', 'feb', 'maa', 'apr', 'mei', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'],
+
       // Specific text labels for drill down map
       drillUpText: '<< Terug naar {series.name}', // You may use {series.name} as parameter in the text
 
@@ -338,4 +343,26 @@ Highcharts.theme = {
 };
 
 // Apply the theme
-//Highcharts.setOptions(Highcharts.theme);
+Highcharts.setOptions(Highcharts.theme);
+
+Highcharts.setOptions({
+  lang: {
+          loading: 'Wordt geladen...',
+          months: ['januari', 'februari', 'maart', 'april', 'mei', 'juni', 'juli', 'augustus', 'september', 'oktober', 'november', 'december'],
+          weekdays: ['zondag', 'maandag', 'dinsdag', 'woensdag', 'donderdag', 'vrijdag', 'zaterdag'],
+          shortMonths: ['jan', 'feb', 'maa', 'apr', 'mei', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'],
+          exportButtonTitle: "Exporteren",
+          printButtonTitle: "Printen",
+          rangeSelectorFrom: "Vanaf",
+          rangeSelectorTo: "Tot",
+          rangeSelectorZoom: "Periode",
+          downloadPNG: 'Download als PNG',
+          downloadJPEG: 'Download als JPEG',
+          downloadPDF: 'Download als PDF',
+          downloadSVG: 'Download als SVG',
+          resetZoom: 'Reset',
+          resetZoomTitle: 'Reset',
+          thousandsSep: '.',
+          decimalPoint: ',' 
+      }        
+});

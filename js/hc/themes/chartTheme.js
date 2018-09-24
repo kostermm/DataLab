@@ -13,23 +13,23 @@
 
 var categorie = ['#42145f','#ffb612','#a90061','#777c00','#007bc7','#673327','#e17000','#39870c', '#94710a','#01689b','#f9e11e','#76d2b6','#d52b1e','#8fcae7','#ca005d','#275937','#f092cd'];
 // 1)paars, 2)donkergeel, 3)robijnrood, 4)mosgroen, 5)hemelblauw, 6)donkerbruin, 7)oranje, 8)groen, 9)bruin, 10)donkerblauw, 11)geel, 12)mintgroen, 13)rood, 14)lichtblauw, 15violet), 16)donkergroen, 17)roze
-var geslacht =['#007bc7', '#ca005d', '#42145f']; //order: 1)men, 2)women, 3)total
-var internationaal = ['#42145f', '#ffb612'];
-var enkel = ['#42145f'];
-var profiel = ['#e17000', '#42145f', '#777c00'];
+
  
 Highcharts.setOptions({
 	lang: {
 		months: ['januari', 'februari', 'maart', 'april', 'mei', 'juni',  'juli', 'augustus', 'september', 'oktober', 'november', 'december'],
 		weekdays: ['zondag', 'maandag', 'dinsdag', 'woensdag', 'donderdag', 'vrijdag', 'zaterdag'],
+		shortMonths: ['jan', 'feb', 'maa', 'apr', 'mei', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'],
+		
 		numericSymbols: null,
 		decimalPoint: ',',
-		thousandsSep: ' ',
+		thousandsSep: '.',
 		loading: 'laden...',
 		noData: 'Geen gegevens beschikbaar',
 		contextButtonTitle: 'Exporteer grafiek',
 		printChart: 'Print grafiek',
 		downloadPNG: 'Download als PNG',
+		downloadJPEG: 'Download als JPEG',
 		downloadPDF: 'Download als PDF',
 		downloadSVG: 'Download als SVG',
 		downloadCSV: 'Download data in CSV-formaat',
@@ -37,9 +37,7 @@ Highcharts.setOptions({
 		viewData: 'Toon de data in tabelvorm'
 	},
 	chart: {
-        style: {
-			fontFamily: 'RijksoverheidSans, verdana, serif'
-        },
+		style: { fontFamily: 'RijksoverheidSans, verdana, serif' },
 		backgroundColor: 'rgba(255, 255, 255, 0.0)',
 		
 		//Event below is for automatically positioning yAxis.axisTitle (http://jsfiddle.net/kL5md/21/)
@@ -65,7 +63,8 @@ Highcharts.chartTheme = {
 		// chart spacing and margins see: http://www.highcharts.com/docs/chart-design-and-style/design-and-style
 		//spacing: [10, 10, 15, 0],
 		//VZinfo: [49, 5, 5, 79]
-		margin: null,
+		marginLeft: 70,
+		marginRight: 120,
 		// Explicitly tell the width and height of a chart
 		width: null,
 		height: null
@@ -77,41 +76,40 @@ Highcharts.chartTheme = {
 			color: '#303030'
 		}
 	},
-	colors: categorie,
+	colors: ["#7cb5ec", "#434348", "#e85300"], 
 	title: {
+		text: null,
 		align: 'center',
 		style: {
-			fontSize: '18px',
+			fontSize: '16px',
 			fontWeight: 'bold',
 			color: '#01689B'
 		},
-		margin: 30
+		// margin: 30
 	},
 	subtitle: {
 		align: 'center',
 		style: {
 			fontSize: '14px',
-			fontWeight: 'bold',
+			fontWeight: 'normal',
 			color: '#01689B'
 		}
 	},	
 	credits: {
 		enabled: true,
-		text: '',
-		href: '',
+		text: 'rivm.nl',
+		href: 'https://www.rivm.nl',
+
 		style: {
 			fontSize: '11px',
 			color: '#505050',
 			cursor: 'default'
-			},
+		},
 		position: {
-            verticalAlign: 'bottom',
+			verticalAlign: 'bottom',
 			align: 'left',
 			x: 0
-        }
-	},
-	mapNavigation: {
-		enabled: false
+		}
 	},
 	xAxis: {
 		lineWidth: 2,
@@ -134,34 +132,38 @@ Highcharts.chartTheme = {
 			staggerLines: 1
 		},
 		crosshair: {
-            width: 3,
-            color: '#535353',
+			width: 3,
+			color: '#535353',
 			dashStyle: 'shortDash'
-        }
+		}
 	},
 	yAxis: {
-        title: {
-			text: '',
-			align: 'high',
+		title: {
+			// text: '',
+			align: 'middle',
+			textAlign: "center",
 			style: {
 				fontSize: '10pt',
 				color: '#01689b'
 			},
-			rotation: 0,
-			y: -9
-        },
+			rotation: 270,
+			x: 0,
+			y: 0
+		},
 		labels: {
 			style: {
 				fontSize: '9pt',
 				color: '#000000'
-			}
+			},
+			format: '{value:,.0f}'
 		},
 		lineWidth: 0,
 		gridLineDashStyle: 'solid',
 		gridLineColor: '#535353',
 		gridlineWidth: '0.75'
-    },
+	},
 	legend: {
+		enabled: true,
 		margin: 8,
 		squareSymbol: false,
 		symbolWidth: 24,
@@ -170,7 +172,7 @@ Highcharts.chartTheme = {
 		y: 15,
 		itemStyle: {
 			fontWeight: 'normal',
-			fontSize: '10pt',
+			fontSize: '12pt',
 			color: '#000000'
 		},
 		itemHoverStyle: {
@@ -179,10 +181,9 @@ Highcharts.chartTheme = {
 		itemHiddenStyle: {
 			color: '#c8c8c8'
 		},
-		align: 'center',
-		layout: 'horizontal',
-		verticalAlign: 'bottom',
-		
+		align: 'right',
+		layout: 'horizontal', // 'proximate',
+		verticalAlign: 'top'  // When the layout option is proximate, the verticalAlign option doesn't apply.
 	},
 	tooltip: {
 		headerFormat: '<strong><large>{point.key}</large></strong><br>',
@@ -190,7 +191,7 @@ Highcharts.chartTheme = {
 			fontSize: '10pt',
 			color: '#000000'
 		},
-		pointFormat: '<span style="color:{point.color}">\u25A0</span> {series.name}: <b>{point.y}</b><br/>',
+		pointFormat: '<span style="color:{point.color}">\u25A0</span> {series.name}: <b>{point.y:,.0f}</b><br/>',
 		valueDecimals: 1,
 		hideDelay: 0.2,
 		backgroundColor: 'rgba(255,255,255,0.95)',
@@ -308,14 +309,31 @@ Highcharts.chartTheme = {
         }
     },
 	exporting: {
-        buttons: {
-            contextButton: {
+		credits: {
+			enabled: true,
+			text: 'rivm.nl',
+			href: 'https://www.rivm.nl',
+			
+			style: {
+				fontSize: '11px',
+				color: '#505050',
+				cursor: 'default'
+			},
+			position: {
+				verticalAlign: 'bottom',
+				align: 'left',
+				x: 0,
+				y: 10	
+			}
+		},
+		buttons: {
+			contextButton: {
 				symbol: 'url(./js/hc/themes/images/download.png)',
 				//symbol: 'url(/modules/custom/sdv_highcharts/js/images/download.png)',
 				verticalAlign: 'bottom',
 				y: 10,
 				symbolX: 22,
-                symbolY: 22,
+				symbolY: 22,
 				theme: {
 					fill: 'rgba(255, 255, 255, 0.0)',
 					states: {
@@ -327,7 +345,8 @@ Highcharts.chartTheme = {
 						}
 					}
 				},
-           		menuItems: [{
+			menuItems: [
+				{
 					textKey: 'downloadPNG',
 					onclick: function () {this.exportChart();}
 				},{
@@ -348,9 +367,9 @@ Highcharts.chartTheme = {
 					textKey: 'viewData',
 					onclick: function () { this.viewData(); }
 				}]
-            },
+			},
 			printButton: {
-                symbol: 'url(./js/hc/themes/images/printer.png)',
+				symbol: 'url(./js/hc/themes/images/printer.png)',
 				//symbol: 'url(/modules/custom/sdv_highcharts/js/images/printer.png)',
 				verticalAlign: 'bottom',
 				x: -30,
@@ -366,15 +385,13 @@ Highcharts.chartTheme = {
 						}
 					}
 				},
-                symbolX: 22,
-                symbolY: 22,
-                _titleKey: 'printChart',
-                onclick: function () {
-					this.print();
-                }
-            }
-        }
-    },
+				symbolX: 22,
+				symbolY: 22,
+				_titleKey: 'printChart',
+				onclick: function () { this.print(); }
+			}
+		}
+	},
 	responsive: {
 		rules: [{
 			condition: {
