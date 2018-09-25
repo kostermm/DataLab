@@ -21,33 +21,37 @@
 //     }
 // });
 
-function bindEvents() {
+/* Working fiddles, also with multiple series
+ * https://forum.highcharts.com/highcharts-usage/synchronized-charts-with-multiple-series-t33578 
+ * http://jsfiddle.net/L180p7r3/2/
+ * 
+
+*/
+
+function bindSyncEvents() {
+  console.log('Binding sync event to ', $('#chartsContainer .chart'));
   $('#chartsContainer .chart').bind('mousemove touchmove touchstart', function(e) {
-    var currentChart = $(this).highcharts(),
-      chart,
+    var chart, point, i,
+      currentChart = $(this).highcharts(), 
       event = currentChart.pointer.normalize(e.originalEvent),
-      currentPoint = currentChart.series[0].searchPoint(event, true),
-      point,
-      i;
+      currentPoint = currentChart.series[0].searchPoint(event, true) ;
 
-    if (point) {
-      point.highlight(e);
-    }
+    if (currentPoint != undefined) {
+      for (i = 0; i < Highcharts.charts.length; i = i + 1) {
+        chart = Highcharts.charts[i];
+        if (chart !== currentChart) {
+          point = chart.series[0].searchPoint({
+            chartX: currentPoint.plotX + chart.plotLeft,
+            chartY: currentPoint.plotY + chart.plotTop
+          }, true); // Get the hovered point
 
-    for (i = 0; i < Highcharts.charts.length; i = i + 1) {
-
-      chart = Highcharts.charts[i];
-      if (chart !== currentChart) {
-        point = chart.series[0].searchPoint({
-          chartX: currentPoint.plotX + chart.plotLeft,
-          chartY: currentPoint.plotY + chart.plotTop
-        }, true); // Get the hovered point
-
-        if (point) {
-          point.highlight(e);
+          if (point) {
+            point.highlight(e);
+          }
         }
       }
     }
+    
   });
 }
 /**

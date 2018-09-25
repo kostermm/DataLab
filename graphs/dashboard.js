@@ -20,29 +20,7 @@ function loadSelect(id, selectedOption) {
 		}
 	});
 }
-/*
-	tickPositioner
 
-	 xAxis: {
-        tickPositions: [0, 1, 2, 4, 8]
-    },
-
-    yAxis: {
-        tickPositioner: function () {
-            var positions = [],
-                tick = Math.floor(this.dataMin),
-                increment = Math.ceil((this.dataMax - this.dataMin) / 6);
-
-            if (this.dataMax !== null && this.dataMin !== null) {
-                for (tick; tick - increment <= this.dataMax; tick += increment) {
-                    positions.push(tick);
-                }
-            }
-            return positions;
-        }
-    },
-
-*/
 
 // Default charts options, specific options like titles etc are set through chartsConfig
 var defaultChartOptions = {
@@ -96,27 +74,24 @@ var defaultChartOptions = {
 			text: 'Aantal'
 		}	
 	},
-	tooltip: {
-		headerFormat: '<large><strong>{point.x:%e-%b-%Y}</strong></large><br>',
-		shared: true,
-		valueDecimals: 0,
-		formatter: function() {
-			var points = this.points, pointsLength = points.length;
-			var tooltipMarkup =	 pointsLength ? '<span style="font-size: 10px">' + points[0].key + '</span><br/>' : '';
+	// tooltip: {
+	// 	headerFormat: '<large><strong>{point.x:%e-%b-%Y}</strong></large><br>',
+	// 	shared: true,
+	// 	valueDecimals: 0,
+	// 	formatter: function() {
+	// 		var points = this.points, pointsLength = points.length;
+	// 		var tooltipMarkup =	 pointsLength ? '<span style="font-size: 10px">' + points[0].key + '</span><br/>' : '';
 						
-			$.each(points, function(index, item) {
-				tooltipMarkup += '<b>' + this.series.name +'</b><br/>' +
-					// Highcharts.dateFormat('%e - %b - %Y', new Date(this.x))
-					new Date(this.x).format('shortDateDay') + ': ' + Highcharts.numberFormat(this.y,-1) + 
-						(this.point.high != undefined ? ' - ' + Highcharts.numberFormat(this.point.high,-1) : '');
-			})
+	// 		$.each(points, function(index, item) {
+	// 			tooltipMarkup += '<b>' + this.series.name +'</b><br/>' +
+	// 				// Highcharts.dateFormat('%e - %b - %Y', new Date(this.x))
+	// 				new Date(this.x).format('shortDateDay') + ': ' + Highcharts.numberFormat(this.y,-1) + 
+	// 					(this.point.high != undefined ? ' - ' + Highcharts.numberFormat(this.point.high,-1) : '');
+	// 		})
 			
-			return tooltipMarkup;
-		},
-		credits: {
-			text: 'rivm.nl',
-			href: 'https://www.rivm.nl'
-		}
+	// 		return tooltipMarkup;
+	// 	}
+	// },
 		/*
 			formatter: function () {
             var points = this.points;
@@ -134,8 +109,6 @@ var defaultChartOptions = {
             return tooltipMarkup;
         }
 		*/
-	},
-
 	plotOptions: {
 		series: {
 			marker: {
@@ -195,25 +168,28 @@ var chartsConfig = {
 			yAxis: {	title: { text: 'aantal/week'	}},
 			credits: {
 				enabled: false
+			},
+			tooltip: {
+				shared: false
 			}
 		}
 	},
-	lucht: {
-		url: 'https://api.luchtmeetnet.nl/station/measurement_data?station_id=170&component_id=2&start_date=beginJaar/01/01&end_date=eindeJaar/12/31&daily_averages=1',
-		chartOptions: { 
-			// title: { text: 'Fijnstof PM 2.5' }, 
-			subtitle: null, 
-			xAxis: { 
-				labels: {
-					enabled: true
-				},
-				opposite: false
-			},
-			yAxis: {	title: { text: 'μg/m3'	}}},
-			credits: {
-				enabled: false
-			}
-	},
+	// lucht: {
+	// 	url: 'https://api.luchtmeetnet.nl/station/measurement_data?station_id=170&component_id=2&start_date=beginJaar/01/01&end_date=eindeJaar/12/31&daily_averages=1',
+	// 	chartOptions: { 
+	// 		// title: { text: 'Fijnstof PM 2.5' }, 
+	// 		subtitle: null, 
+	// 		xAxis: { 
+	// 			labels: {
+	// 				enabled: true
+	// 			},
+	// 			opposite: false
+	// 		},
+	// 		yAxis: {	title: { text: 'μg/m3'	}}},
+	// 		credits: {
+	// 			enabled: false
+	// 		}
+	// },
 	temperatuur: {
 		url: '../knmi.php',
 		chartOptions: { 
@@ -302,13 +278,12 @@ $(function () {
 	$.each(chartsConfig, function(key, item){
 		dashboardCharts[key] = createChart(key, item.chartOptions);
 	})
-	// Bind events to sync interaction
-	// bindEvents(); 
 
 	// Trigger change event to load data and update charts
 	$('#begin.jaar').trigger('change');
 
-
+	// Bind events to sync interaction
+	bindSyncEvents(); 
 });
 
 /* Create Highcharts charts possibly without series to create empty chart
@@ -421,7 +396,7 @@ function getSterfte() {
 					console.log(this[0]);
 				}
 			});
-			console.log(seriesDataDate);
+			// console.log(seriesDataDate);
 
 			updateChart(dashboardCharts['sterfte'], { id: 'Sterfte', name: 'Sterfte', data: seriesDataDate }
 				, selectConfig.selectedOptions.gesl.name + ', ' + selectConfig.selectedOptions.lftkls.name );
@@ -480,8 +455,6 @@ function addTemparatureColumn (arrTemperature, colName, dataCols){
 	updateChart(dashboardCharts['temperatuur'], { id: 'temp_'+dataCol, name: colName || 'Temperatuur '+dataCol
 		, data: seriesData, type: seriesType, color: Highcharts.getOptions().colors[0] } );
 }
-
-
 
 // Function to get Luchtkwaliteit data and update chart
 function getLucht(component) {
@@ -561,7 +534,7 @@ function convertDayToWeekData(arrData, dayToUse) {
 /* Merge week data items with items in next/prev year:
 // week 0 -> merge with last item previous year
 // week 53 -> merge with first item next year
-// if next/pref does not exist: remove week 0/53
+// if next/prev does not exist: remove week 0/53
 */
 function mergeWeekOrphans(arrData) {
 // Week 0 will be added to previous week
@@ -571,13 +544,13 @@ function mergeWeekOrphans(arrData) {
 							// 	}
 	return arrData.map( function (item, index, arr){
 			// Week 0 will be added to previous week
-			if( item[0] % 100 == 0 ){
+			if( getYearWeek(item[0]).week == 0 ){
 				if( arr[index-1] != undefined ) {
 					console.log('add', item, ' to', arr[index-1]);
 					arr[index-1][1] += item[1];
 				} 
 			}
-			if( item[0] % 100 == 53){
+			if( getYearWeek(item[0]).week == 53){
 				if( arr[index+1] != undefined ) {
 					console.log('add', item, ' to', arr[index+1]);
 					arr[index+1][1] += item[1];
@@ -586,7 +559,7 @@ function mergeWeekOrphans(arrData) {
 
 			return item;
 		}).filter( function (item, index, arr){
-			return item[0] % 100 != 0 && item[0] % 100 != 53;
+			return getYearWeek(item[0]).week != 0 && getYearWeek(item[0]).week != 53;
 	})
 	// .map( function (item, index, arr){
 	// 	var date = new Date(item[0]);
@@ -598,20 +571,60 @@ function mergeWeekOrphans(arrData) {
 	// })
 }
 
-	//function to add days to a given date. 
-	function addDays(startDate,numberOfDays)
-	{
-		var returnDate = new Date(
-								startDate.getFullYear(),
-								startDate.getMonth(),
-								startDate.getDate()+numberOfDays,
-								startDate.getHours(),
-								startDate.getMinutes(),
-								startDate.getSeconds());
-		return returnDate;
-	}
-	Date.prototype.getWeek = function () {
-    var onejan = new Date(this.getFullYear(), 0, 1);
-		// return Math.ceil((((this - onejan) / 86400000) + onejan.getDay() + 1) / 7);
-		return Math.ceil((((new Date(this.getFullYear(), this.getMonth(), this.getDate()) - onejan) / 86400000) + onejan.getDay() + 1) / 7);
-	};
+// Get object with year and week from year-week string format: YYYYWW
+function getYearWeek(intYearWeek) {
+	var objYearWeek = {};
+	objYearWeek.year = Math.floor(intYearWeek / 100);
+	objYearWeek.week = intYearWeek % 100;
+	
+	return objYearWeek;
+
+}
+
+// function to add days to a given date. 
+function addDays(startDate,numberOfDays)
+{
+	var returnDate = new Date(
+				startDate.getFullYear(),
+				startDate.getMonth(),
+				startDate.getDate()+numberOfDays,
+				startDate.getHours(),
+				startDate.getMinutes(),
+				startDate.getSeconds()
+			);
+
+	return returnDate;
+}
+
+Date.prototype.getWeek = function () {
+	var onejan = new Date(this.getFullYear(), 0, 1);
+	// return Math.ceil((((this - onejan) / 86400000) + onejan.getDay() + 1) / 7);
+	return Math.ceil((((new Date(this.getFullYear(), this.getMonth(), this.getDate()) - onejan) / 86400000) + onejan.getDay() + 1) / 7);
+};
+
+// Function to calculate tickPositions
+function tickPositioner() {
+	/*
+	tickPositioner
+
+	 xAxis: {
+        tickPositions: [0, 1, 2, 4, 8]
+    },
+
+    yAxis: {
+        tickPositioner: function () {
+            var positions = [],
+                tick = Math.floor(this.dataMin),
+                increment = Math.ceil((this.dataMax - this.dataMin) / 6);
+
+            if (this.dataMax !== null && this.dataMin !== null) {
+                for (tick; tick - increment <= this.dataMax; tick += increment) {
+                    positions.push(tick);
+                }
+            }
+            return positions;
+        }
+    },
+
+	*/
+}

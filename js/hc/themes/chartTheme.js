@@ -64,7 +64,7 @@ Highcharts.chartTheme = {
 		//spacing: [10, 10, 15, 0],
 		//VZinfo: [49, 5, 5, 79]
 		marginLeft: 70,
-		marginRight: 140,
+		marginRight: 145,
 		// Explicitly tell the width and height of a chart
 		width: null,
 		height: null
@@ -169,7 +169,9 @@ Highcharts.chartTheme = {
 		symbolWidth: 24,
 		symbolHeight: 12,
 		symbolRadius: 0,
-		y: 15,
+		x: 0,
+		y: 5,
+		itemWidth: 120,
 		itemStyle: {
 			fontWeight: 'normal',
 			fontSize: '11pt',
