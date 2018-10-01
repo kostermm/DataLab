@@ -39,6 +39,9 @@ var defaultChartOptions = {
 			// title: {
 			// 	text: 'Week'
 			// },
+		events: {
+			setExtremes: syncExtremes
+		},
 		startOnTick: true,
 		// endOndTick: true,	
 		minTickInterval: 5,			

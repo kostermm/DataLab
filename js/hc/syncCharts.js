@@ -71,3 +71,26 @@ Highcharts.Point.prototype.highlight = function (event) {
     this.series.chart.tooltip.refresh(this); // Show the tooltip
     this.series.chart.xAxis[0].drawCrosshair(event, this); // Show the crosshair
 };
+
+/**
+ * Synchronize zooming through the setExtremes event handler.
+ */
+function syncExtremes(e) {
+  var thisChart = this.chart;
+  
+  if (e.trigger !== 'syncExtremes') { // Prevent feedback loop
+    // if(e.min == undefined) { // zoom out -> use extremes of chart[0]
+    //   e.trigger = 'zoomout';
+    //   e.min = Highcharts.charts[0].xAxis[0].dataMin;
+    //   e.max = Highcharts.charts[0].xAxis[0].dataMax
+    // }
+
+    Highcharts.each(Highcharts.charts, function (chart) {
+      if (chart !== thisChart || e.trigger == 'zoomout') {
+        if (chart.xAxis[0].setExtremes) { // It is null while updating
+          chart.xAxis[0].setExtremes(e.min, e.max, undefined, false, { trigger: 'syncExtremes' });
+        }
+      }
+    });
+  }
+}
