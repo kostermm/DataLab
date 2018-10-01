@@ -184,7 +184,7 @@ Highcharts.chartTheme = {
 			color: '#c8c8c8'
 		},
 		align: 'right',
-		layout: 'proximate', // 'proximate',
+		layout: 'proximate', // 'proximate','vertical'
 		verticalAlign: 'top'  // When the layout option is proximate, the verticalAlign option doesn't apply.
 	},
 	tooltip: {
@@ -203,7 +203,7 @@ Highcharts.chartTheme = {
 	},
 	plotOptions: {
 		line: {
-			lineWidth: 3,
+			lineWidth: 2,
 			zIndex: 1,
 			marker: {
 				enabled: false
@@ -246,7 +246,7 @@ Highcharts.chartTheme = {
 			//stickyTracking: false,
 			states: {
 				hover: {
-					lineWidthPlus: 2,
+					lineWidthPlus: 1,
 					brightness: 0.15
 				}
 			},

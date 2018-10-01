@@ -174,22 +174,22 @@ var chartsConfig = {
 			}
 		}
 	},
-	// lucht: {
-	// 	url: 'https://api.luchtmeetnet.nl/station/measurement_data?station_id=170&component_id=2&start_date=beginJaar/01/01&end_date=eindeJaar/12/31&daily_averages=1',
-	// 	chartOptions: { 
-	// 		// title: { text: 'Fijnstof PM 2.5' }, 
-	// 		subtitle: null, 
-	// 		xAxis: { 
-	// 			labels: {
-	// 				enabled: true
-	// 			},
-	// 			opposite: false
-	// 		},
-	// 		yAxis: {	title: { text: 'μg/m3'	}}},
-	// 		credits: {
-	// 			enabled: false
-	// 		}
-	// },
+	lucht: {
+		url: 'https://api.luchtmeetnet.nl/station/measurement_data?station_id=170&component_id=2&start_date=beginJaar/01/01&end_date=eindeJaar/12/31&daily_averages=1',
+		chartOptions: { 
+			// title: { text: 'Fijnstof PM 2.5' }, 
+			subtitle: null, 
+			xAxis: { 
+				labels: {
+					enabled: true
+				},
+				opposite: false
+			},
+			yAxis: {	title: { text: 'μg/m3'	}}},
+			credits: {
+				enabled: false
+			}
+	},
 	temperatuur: {
 		url: '../knmi.php',
 		chartOptions: { 
@@ -260,7 +260,7 @@ $(function () {
 				// Update all charts
 				getSterfte();
 				getTemperature();
-				// getLucht();
+				getLucht();
 			} else {
 				selectConfig.selectedOptions[selectId].key = this.selectedOptions[0].value;
 				selectConfig.selectedOptions[selectId].name = this.selectedOptions[0].text;
@@ -428,6 +428,7 @@ function addTemparatureColumn (arrTemperature, colName, dataCols){
 	var seriesData = [], date, dataCol2;
 	var seriesType = 'line';
 	var dataCol = dataCols[colName] || 2;
+	var _MS_PER_DAY = 1000 * 60 * 60 * 24;
 	
 	if(colName.indexOf('-') > 0) {
 		seriesType = 'arearange';
@@ -444,7 +445,9 @@ function addTemparatureColumn (arrTemperature, colName, dataCols){
 			if(colName.indexOf('-') > 0) {
 				seriesData.push({x: date, low: item[dataCol], high: item[dataCol2], name: date.getFullYear() + ' wk ' + 'week'});
 			} else {
-				seriesData.push({x: date, y: item[dataCol], name: date.getFullYear() + ' wk ' + 'week'});
+				var firstDayOfYear = new Date(date.getFullYear(), 0); // 1 jan: month=0
+				var week = Math.floor((date - firstDayOfYear)/_MS_PER_DAY/7) +1;
+				seriesData.push({x: date, y: item[dataCol], name: date.getFullYear() + ' wk ' + week});
 			}
 		}
 		
@@ -527,7 +530,7 @@ function convertDayToWeekData(arrData, dayToUse) {
 
 		// console.log(date.toLocaleDateString("nl-NL"), 'week: ', week);
 		// return [ date.getFullYear() * 100 + week, item[1]];
-		return [ date, item[1]];
+		return { x: date, y: item[1], name: date.getFullYear() + ' wk ' + week };
 	})
 }
 
