@@ -29,7 +29,7 @@
 */
 
 function bindSyncEvents() {
-  console.log('Binding sync event to ', $('#chartsContainer .chart'));
+  // console.log('Binding sync event to ', $('#chartsContainer .chart'));
   $('#chartsContainer .chart').bind('mousemove touchmove touchstart', function(e) {
     var chart, point, i,
       currentChart = $(this).highcharts(), 

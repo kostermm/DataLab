@@ -11,7 +11,7 @@ function getTemperatureData(bYear, eYear) {
 
 
   //Load CSV data (slice result of array to skip headers)
-  csvData = GetData(url, params);
+  csvData = GetPostData(url, params);
   // console.log((csvData));
 
   parsedData = parseCSV(csvData, [0]);

@@ -7,7 +7,76 @@
 /*
   GetData will download a csv data file from given url
 */
-function GetData(url, postData, skipRows) {
+function GetData(url, getHeaders, listSeparator) {
+  getHeaders = getHeaders || true;
+  listSeparator = listSeparator || ';';
+  var arrData = [];
+
+  $.ajax(url, {
+    dataType: 'text',
+    async: false,
+    success: function (data) {
+      var lineSeparator = '\r\n',
+        lines = [],
+        columnCount = 0;
+
+      // Which line separator? Windows (CR LF)= '\r\n\'; Unix/OS X = '\r';  Mac (CR) = '\n'
+      if (data.indexOf(lineSeparator) == -1) {
+        lineSeparator = '\n';
+
+        if (data.indexOf(lineSeparator) == -1) {
+          lineSeparator = '\r';
+        }
+      }
+
+      // Split the lines
+      lines = data.split(lineSeparator);
+
+      // Iterate over the lines and add categories or series
+      $.each(lines, function (lineNo, line) {
+        var items = line.split(listSeparator);
+        var dataRow = [];
+
+        // Get number of Cols from first row
+        if (lineNo == 0) {
+          columnCount = items.length
+        }
+
+        // header line may contain headers; only retrieved if getHeaders = true
+        if (lineNo == 0 && getHeaders) {
+          $.each(items, function (itemNo, item) {
+            dataRow.push(item);
+          });
+
+          //Push row to data array
+          arrData.push(dataRow);
+
+        } else if (items.length == columnCount) {
+          // the rest of the lines contain data
+          $.each(items, function (itemNo, item) {
+            dataRow.push((item));
+          });
+
+          //Push row to data array
+          arrData.push(dataRow);
+
+        } else {
+          console.log('CSV data row ' + lineNo + ' skipped: ' + items);
+        }
+      });
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+      alert(textStatus + ' loading "' + url + '" -> ' + errorThrown);
+    }
+  });
+
+  return arrData;
+
+};
+/*
+  GetData will download a csv data file from given url
+*/
+function GetPostData(url, postData, skipRows) {
   var arrData = [], skipRows = skipRows || 2;
 
   $.ajax(url, {
