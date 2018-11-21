@@ -65,6 +65,7 @@ Highcharts.chartTheme = {
 		//VZinfo: [49, 5, 5, 79]
 		marginLeft: 70,
 		marginRight: 145,
+		marginBottom: 5,
 		// Explicitly tell the width and height of a chart
 		width: null,
 		height: null

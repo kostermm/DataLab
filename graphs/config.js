@@ -62,7 +62,7 @@ var chartsConfig = {
 	},
 	griep: {
 		data: {
-			url: "/data/griep.csv",
+			url: "data/griep.csv",
 			getData: getGriep,
 			triggeredBy: 'gesl'
 		},
@@ -70,7 +70,7 @@ var chartsConfig = {
 			subtitle: null,
 			xAxis: {
 				labels: {
-					enabled: true
+					enabled: false
 				},
 				opposite: false
 			},
@@ -90,7 +90,7 @@ var chartsConfig = {
 			subtitle: null,
 			xAxis: {
 				labels: {
-					enabled: true
+					enabled: false
 				},
 				opposite: false
 			},
@@ -110,6 +110,9 @@ var chartsConfig = {
 		},
 		chartOptions: {
 			// title: { text: 'Temperatuur' }, 
+			chart: {
+				marginBottom: 25
+			},
 			subtitle: null,
 			xAxis: {
 				labels: {
@@ -142,7 +145,7 @@ var defaultChartOptions = {
 		// renderTo: container,
 		type: 'spline',
 		zoomType: 'x',
-		height: 250
+		height: 180
 	},
 	colors: ["#7cb5ec", "#434348", "#e85300"], // "#f7a35c", "#8085e9", "#f15c80", "#e4d354", "#2b908f", "#f45b5b", "#91e8e1"],
 	xAxis: {
