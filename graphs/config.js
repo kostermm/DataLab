@@ -46,6 +46,9 @@ var chartsConfig = {
 			triggeredBy: 'gesl;lftkls'
 		},
 		chartOptions: {
+			chart: {
+				height: 180
+			},
 			title: { text: null }, // 'Aantal sterfgevallen per week' }, 
 			subtitle: { text: selectConfig.selectedOptions.gesl.name + ', ' + selectConfig.selectedOptions.lftkls.name },
 			xAxis: {
@@ -67,6 +70,9 @@ var chartsConfig = {
 			triggeredBy: 'gesl'
 		},
 		chartOptions: {
+			chart: {
+				height: 120
+			},
 			subtitle: null,
 			xAxis: {
 				labels: {
@@ -111,6 +117,7 @@ var chartsConfig = {
 		chartOptions: {
 			// title: { text: 'Temperatuur' }, 
 			chart: {
+				height: 140,
 				marginBottom: 25
 			},
 			subtitle: null,
@@ -143,9 +150,9 @@ var chartsConfig = {
 var defaultChartOptions = {
 	chart: {
 		// renderTo: container,
+		marginBottom: 10,
 		type: 'spline',
-		zoomType: 'x',
-		height: 180
+		zoomType: 'x'
 	},
 	colors: ["#7cb5ec", "#434348", "#e85300"], // "#f7a35c", "#8085e9", "#f15c80", "#e4d354", "#2b908f", "#f45b5b", "#91e8e1"],
 	xAxis: {

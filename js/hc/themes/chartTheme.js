@@ -63,7 +63,7 @@ Highcharts.chartTheme = {
 		// chart spacing and margins see: http://www.highcharts.com/docs/chart-design-and-style/design-and-style
 		//spacing: [10, 10, 15, 0],
 		//VZinfo: [49, 5, 5, 79]
-		marginLeft: 70,
+		marginLeft: 80,
 		marginRight: 145,
 		marginBottom: 5,
 		// Explicitly tell the width and height of a chart
@@ -143,6 +143,7 @@ Highcharts.chartTheme = {
 			// text: '',
 			align: 'middle',
 			textAlign: "center",
+			offset: 60,
 			style: {
 				fontSize: '10pt',
 				color: '#01689b'
