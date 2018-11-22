@@ -94,7 +94,8 @@ Highcharts.chartTheme = {
 			fontSize: '14px',
 			fontWeight: 'normal',
 			color: '#01689B'
-		}
+		},
+		y: 0
 	},	
 	credits: {
 		enabled: true,
@@ -193,7 +194,7 @@ Highcharts.chartTheme = {
 		headerFormat: '<strong><large>{point.key}</large></strong><br>',
 		style: {
 			fontSize: '10pt',
-			color: '#000000'
+			color: '#007bc7'
 		},
 		pointFormat: '{series.name}: <b>{point.y:,.0f}</b><br/>', // <span style="color:{point.color}">\u25A0</span> 
 		valueDecimals: 1,

@@ -66,8 +66,7 @@ var chartsConfig = {
 	griep: {
 		data: {
 			url: "data/griep.csv",
-			getData: getGriep,
-			triggeredBy: 'gesl'
+			getData: getGriep
 		},
 		chartOptions: {
 			chart: {
