@@ -195,13 +195,19 @@ Highcharts.chartTheme = {
 			fontSize: '10pt',
 			color: '#000000'
 		},
-		pointFormat: '<span style="color:{point.color}">\u25A0</span> {series.name}: <b>{point.y:,.0f}</b><br/>',
+		pointFormat: '{series.name}: <b>{point.y:,.0f}</b><br/>', // <span style="color:{point.color}">\u25A0</span> 
 		valueDecimals: 1,
 		hideDelay: 0.2,
-		backgroundColor: 'rgba(255,255,255,0.95)',
-		borderWidth: 2,
+		backgroundColor: null, //'rgba(255,255,255,0.95)',
+		borderWidth: 0,
 		borderColor: '#000000',
-		shadow: false
+		shadow: false,
+		padding: 0,
+		shape: 'square',
+		positioner: function () {
+			console.log(this.chart.plotTop, this.chart.plotSizeY);
+			return { x: this.chart.plotLeft + this.chart.plotSizeX+ 5, y: this.chart.plotTop };
+		}
 	},
 	plotOptions: {
 		line: {
