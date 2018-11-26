@@ -11,16 +11,16 @@
  * 2.2: 09-06-2017 --> Automatically positioning yAxis.title, conditional formatting responsive design (exception for bar-charts)
  ***/
 
-var categorie = ['#42145f','#ffb612','#a90061','#777c00','#007bc7','#673327','#e17000','#39870c', '#94710a','#01689b','#f9e11e','#76d2b6','#d52b1e','#8fcae7','#ca005d','#275937','#f092cd'];
+var categorie = ['#42145f', '#ffb612', '#a90061', '#777c00', '#007bc7', '#673327', '#e17000', '#39870c', '#94710a', '#01689b', '#f9e11e', '#76d2b6', '#d52b1e', '#8fcae7', '#ca005d', '#275937', '#f092cd'];
 // 1)paars, 2)donkergeel, 3)robijnrood, 4)mosgroen, 5)hemelblauw, 6)donkerbruin, 7)oranje, 8)groen, 9)bruin, 10)donkerblauw, 11)geel, 12)mintgroen, 13)rood, 14)lichtblauw, 15violet), 16)donkergroen, 17)roze
 
- 
+
 Highcharts.setOptions({
 	lang: {
-		months: ['januari', 'februari', 'maart', 'april', 'mei', 'juni',  'juli', 'augustus', 'september', 'oktober', 'november', 'december'],
+		months: ['januari', 'februari', 'maart', 'april', 'mei', 'juni', 'juli', 'augustus', 'september', 'oktober', 'november', 'december'],
 		weekdays: ['zondag', 'maandag', 'dinsdag', 'woensdag', 'donderdag', 'vrijdag', 'zaterdag'],
 		shortMonths: ['jan', 'feb', 'maa', 'apr', 'mei', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec'],
-		
+
 		numericSymbols: null,
 		decimalPoint: ',',
 		thousandsSep: '.',
@@ -39,11 +39,11 @@ Highcharts.setOptions({
 	chart: {
 		style: { fontFamily: 'RijksoverheidSans, verdana, serif' },
 		backgroundColor: 'rgba(255, 255, 255, 0.0)',
-		
+
 		//Event below is for automatically positioning yAxis.axisTitle (http://jsfiddle.net/kL5md/21/)
 		// events: {
 		// 	load: function () {
-    //             var chart = this, yAxis = chart.yAxis[0];
+		//             var chart = this, yAxis = chart.yAxis[0];
 		// 		if(chart.options.chart.type != 'bar' && yAxis.axisTitle != undefined) {
 		// 			var bbWidth = yAxis.axisTitle.getBBox();
 		// 			yAxis.update({
@@ -57,7 +57,7 @@ Highcharts.setOptions({
 	}
 
 });
- 
+
 Highcharts.chartTheme = {
 	chart: {
 		// chart spacing and margins see: http://www.highcharts.com/docs/chart-design-and-style/design-and-style
@@ -77,7 +77,7 @@ Highcharts.chartTheme = {
 			color: '#303030'
 		}
 	},
-	colors: ["#7cb5ec", "#434348", "#e85300"], 
+	colors: ["#7cb5ec", "#434348", "#e85300"],
 	title: {
 		text: null,
 		align: 'center',
@@ -96,7 +96,7 @@ Highcharts.chartTheme = {
 			color: '#01689B'
 		},
 		y: 0
-	},	
+	},
 	credits: {
 		enabled: true,
 		text: 'rivm.nl',
@@ -207,7 +207,7 @@ Highcharts.chartTheme = {
 		shape: 'square',
 		positioner: function () {
 			console.log(this.chart.plotTop, this.chart.plotSizeY);
-			return { x: this.chart.plotLeft + this.chart.plotSizeX+ 5, y: this.chart.plotTop };
+			return { x: this.chart.plotLeft + this.chart.plotSizeX + 5, y: this.chart.plotTop };
 		}
 	},
 	plotOptions: {
@@ -238,7 +238,7 @@ Highcharts.chartTheme = {
 			fillOpacity: 0.3,
 			zIndex: 0,
 			marker: {
-					enabled: false
+				enabled: false
 			}
 		},
 		column: {
@@ -260,11 +260,11 @@ Highcharts.chartTheme = {
 				}
 			},
 			marker: {
-                symbol: 'circle',
+				symbol: 'circle',
 				radius: 0,
-                lineColor: null, // inherit from series
-                states: {
-                    hover: {
+				lineColor: null, // inherit from series
+				states: {
+					hover: {
 						fillColor: '#ffffff',
 						lineWidth: 2,
 						radius: 5
@@ -273,7 +273,7 @@ Highcharts.chartTheme = {
 			},
 			//animation: false,
 			animation: {
-                duration: 1000
+				duration: 1000
 			},
 			dataLabels: {
 				enabled: false,
@@ -288,8 +288,8 @@ Highcharts.chartTheme = {
 				y: -2,
 				x: 6,
 				allowOverlap: true,
-				formatter: function() {
-					if (this.point.x == this.series.data.length - 1) {	
+				formatter: function () {
+					if (this.point.x == this.series.data.length - 1) {
 						return this.series.name;
 						//Other examples:
 						//return this.y + "% " + this.series.name;
@@ -305,7 +305,7 @@ Highcharts.chartTheme = {
 	},
 	labels: {
 		style: {
-			fontSize : '14px',
+			fontSize: '14px',
 			color: '#01689b'
 		}
 	},
@@ -345,7 +345,7 @@ Highcharts.chartTheme = {
 				verticalAlign: 'bottom',
 				align: 'left',
 				x: 0,
-				y: 10	
+				y: 10
 			}
 		},
 		buttons: {
@@ -367,28 +367,28 @@ Highcharts.chartTheme = {
 						}
 					}
 				},
-			menuItems: [
-				{
-					textKey: 'downloadPNG',
-					onclick: function () {this.exportChart();}
-				},{
-					textKey: 'downloadPDF',
-					onclick: function () {this.exportChart({type: 'application/pdf'});}
-				},{
-					textKey: 'downloadSVG',
-					onclick: function () {this.exportChart({type: 'image/svg+xml'});}
-				},{
-					separator: true
-				},{
-					textKey: 'downloadCSV',
-					onclick: function () { this.downloadCSV(); }
-				},{
-					textKey: 'downloadXLS',
-					onclick: function () { this.downloadXLS(); }
-				},{
-					textKey: 'viewData',
-					onclick: function () { this.viewData(); }
-				}]
+				menuItems: [
+					{
+						textKey: 'downloadPNG',
+						onclick: function () { this.exportChart(); }
+					}, {
+						textKey: 'downloadPDF',
+						onclick: function () { this.exportChart({ type: 'application/pdf' }); }
+					}, {
+						textKey: 'downloadSVG',
+						onclick: function () { this.exportChart({ type: 'image/svg+xml' }); }
+					}, {
+						separator: true
+					}, {
+						textKey: 'downloadCSV',
+						onclick: function () { this.downloadCSV(); }
+					}, {
+						textKey: 'downloadXLS',
+						onclick: function () { this.downloadXLS(); }
+					}, {
+						textKey: 'viewData',
+						onclick: function () { this.viewData(); }
+					}]
 			},
 			printButton: {
 				symbol: 'url(./js/hc/themes/images/printer.png)',
@@ -417,34 +417,34 @@ Highcharts.chartTheme = {
 	responsive: {
 		rules: [{
 			condition: {
-				callback: function() {
+				callback: function () {
 					// console.log(this.index, this.options.chart.type, this.title.textStr );
 					return (this.options.chart.type !== 'bar' && this.chartWidth < 600);
 				}
 			},
 			chartOptions: {
-				chart: {marginRight: 10},
-				title: {style: {fontSize: '17px'}},
-				subtitle: {style: {fontSize: '13px'}},
-				credits: {enabled: false},
-				yAxis: {title: {style: {fontSize: '13px'}}}, //In reality this is less then 13px
-				xAxis: {labels: {step: 5}},
-				plotOptions: {series: {dataLabels: {enabled: false}}}	
+				chart: { marginRight: 10 },
+				title: { style: { fontSize: '17px' } },
+				subtitle: { style: { fontSize: '13px' } },
+				credits: { enabled: false },
+				yAxis: { title: { style: { fontSize: '13px' } } }, //In reality this is less then 13px
+				xAxis: { labels: { step: 5 } },
+				plotOptions: { series: { dataLabels: { enabled: false } } }
 			}
-		},{
+		}, {
 			condition: {
-				callback: function() {
+				callback: function () {
 					// console.log(this.index, this.options.chart.type, this.title.textStr );
 					return (this.options.chart.type == 'bar' && this.chartWidth < 600);
 				}
 			},
 			chartOptions: {
-				chart: {marginRight: 10},
-				title: {style: {fontSize: '17px'}},
-				subtitle: {style: {fontSize: '13px'}},
-				credits: {enabled: false},
-				yAxis: {title: {style: {fontSize: '13px'}}},  //In reality this is less then 13px
-				plotOptions: {series: {dataLabels: {enabled: false}}}			
+				chart: { marginRight: 10 },
+				title: { style: { fontSize: '17px' } },
+				subtitle: { style: { fontSize: '13px' } },
+				credits: { enabled: false },
+				yAxis: { title: { style: { fontSize: '13px' } } },  //In reality this is less then 13px
+				plotOptions: { series: { dataLabels: { enabled: false } } }
 			}
 		}]
 	}
