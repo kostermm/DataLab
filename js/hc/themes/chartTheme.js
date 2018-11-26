@@ -255,7 +255,7 @@ Highcharts.chartTheme = {
 			//stickyTracking: false,
 			states: {
 				hover: {
-					lineWidthPlus: 1,
+					lineWidthPlus: 0,
 					brightness: 0.15
 				}
 			},
@@ -266,8 +266,8 @@ Highcharts.chartTheme = {
                 states: {
                     hover: {
 						fillColor: '#ffffff',
-						lineWidth: 4,
-						radius: 7
+						lineWidth: 2,
+						radius: 5
 					}
 				}
 			},
