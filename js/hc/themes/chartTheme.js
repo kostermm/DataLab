@@ -95,7 +95,7 @@ Highcharts.chartTheme = {
 			fontWeight: 'normal',
 			color: '#01689B'
 		},
-		y: 0
+		y: 5
 	},
 	credits: {
 		enabled: true,
