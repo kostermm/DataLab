@@ -169,7 +169,7 @@ Highcharts.chartTheme = {
 		enabled: true,
 		margin: 8,
 		squareSymbol: false,
-		symbolWidth: 24,
+		symbolWidth: 12,
 		symbolHeight: 12,
 		symbolRadius: 0,
 		x: 0,
@@ -187,8 +187,8 @@ Highcharts.chartTheme = {
 			color: '#c8c8c8'
 		},
 		align: 'right',
-		layout: 'proximate', // 'proximate','vertical'
-		verticalAlign: 'top'  // When the layout option is proximate, the verticalAlign option doesn't apply.
+		layout: 'vertical', // 'proximate','vertical'
+		verticalAlign: 'bottom'  // When the layout option is proximate, the verticalAlign option doesn't apply.
 	},
 	tooltip: {
 		headerFormat: '<strong><large>{point.key}</large></strong><br>',

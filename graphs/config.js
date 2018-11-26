@@ -99,7 +99,7 @@ var chartsConfig = {
 			subtitle: null,
 			xAxis: {
 				labels: {
-					enabled: true
+					enabled: false
 				},
 				opposite: false
 			},
@@ -114,9 +114,7 @@ var chartsConfig = {
 			// 	valueDecimals: 1 
 			// },
 			credits: {
-				enabled: true,
-				text: 'rivm.nl',
-				href: 'https://www.rivm.nl'
+				enabled: false
 			}
 		}
 	},
@@ -130,7 +128,7 @@ var chartsConfig = {
 			subtitle: null,
 			xAxis: {
 				labels: {
-					enabled: false
+					enabled: true
 				},
 				opposite: false
 			},
@@ -138,8 +136,13 @@ var chartsConfig = {
 			// tooltip: {
 			// 	valueSuffix: 'μg/m3'
 			// },
+			legend: {
+				y: -15
+			},
 			credits: {
-				enabled: false
+				enabled: true,
+				text: 'rivm.nl',
+				href: 'https://www.rivm.nl'
 			}
 		}
 	}
