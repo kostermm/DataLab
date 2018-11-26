@@ -85,29 +85,6 @@ var chartsConfig = {
 			}
 		}
 	},
-	lucht: {
-		data: {
-			url: 'https://api.luchtmeetnet.nl/station/measurement_data?station_id=170&component_id=2&start_date=beginJaar/01/01&end_date=eindeJaar/12/31&daily_averages=1',
-			getData: getLucht
-		},
-		chartOptions: {
-			// title: { text: 'Fijnstof PM 2.5' }, 
-			subtitle: null,
-			xAxis: {
-				labels: {
-					enabled: false
-				},
-				opposite: false
-			},
-			yAxis: { title: { text: 'μg/m3' } },
-			// tooltip: {
-			// 	valueSuffix: 'μg/m3'
-			// },
-			credits: {
-				enabled: false
-			}
-		}
-	},
 	temperatuur: {
 		data: {
 			url: '../knmi.php',
@@ -140,6 +117,29 @@ var chartsConfig = {
 				enabled: true,
 				text: 'rivm.nl',
 				href: 'https://www.rivm.nl'
+			}
+		}
+	},
+	lucht: {
+		data: {
+			url: 'https://api.luchtmeetnet.nl/station/measurement_data?station_id=170&component_id=2&start_date=beginJaar/01/01&end_date=eindeJaar/12/31&daily_averages=1',
+			getData: getLucht
+		},
+		chartOptions: {
+			// title: { text: 'Fijnstof PM 2.5' }, 
+			subtitle: null,
+			xAxis: {
+				labels: {
+					enabled: false
+				},
+				opposite: false
+			},
+			yAxis: { title: { text: 'μg/m3' } },
+			// tooltip: {
+			// 	valueSuffix: 'μg/m3'
+			// },
+			credits: {
+				enabled: false
 			}
 		}
 	}

@@ -219,7 +219,7 @@ Highcharts.chartTheme = {
 			}
 		},
 		spline: {
-			lineWidth: 3,
+			lineWidth: 2,
 			marker: {
 				enabled: false
 			}
